@@ -1,4 +1,5 @@
 ---
+import Newsletter from '../components/Newsletter.astro';
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Nómadas digitales: resumen en español" description="Resumen en español de la guía para nómadas digitales: cuentas multidivisa, invertir desde el extranjero, residencia fiscal, visado de teletrabajo y Ley Beckham. No es asesoramiento." crumbs={[['Nómadas digitales','/nomadas/']]}>
@@ -11,4 +12,5 @@ import Base from '../layouts/Base.astro';
 <li><strong>Cuentas multidivisa:</strong> comprueba si la entidad tiene licencia bancaria (garantía de depósitos) o de dinero electrónico (solo salvaguarda).</li>
 </ul>
 <p><a class="btn" href="/nomads/" hreflang="en">Read the full guide (English) →</a> <a class="btn ghost" href="/nomads/compare/accounts/" hreflang="en">Comparar cuentas multidivisa</a></p>
+<Newsletter country="es" source="home"/>
 </Base>

@@ -1,4 +1,5 @@
 ---
+import Newsletter from '../components/Newsletter.astro';
 import Base from '../layouts/Base.astro';
 import data from '../data/products.json';
 import { categories } from '../data/categories.js';
@@ -17,10 +18,7 @@ const top = data.products.filter(p=>p.verified && ['cuentas','depositos','letras
 <p><small>{rated.filter(p=>p.verified).length} de {rated.length} tipos/costes verificados en fuente oficial; el resto aparece como <span class="pend">pendiente de verificar</span>.</small></p>
 <h2>Compara por tipo de producto</h2>
 <div class="cards">{Object.entries(categories).map(([k,c])=> <a class="card" style="text-decoration:none;color:inherit" href={'/comparar/'+k+'/'}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div>
-<section class="news"><div><span class="eyebrow">Newsletter</span><h2>Newsletter semanal</h2></div>
-<form action="#NEWSLETTER-PLACEHOLDER" method="post" onsubmit="event.preventDefault();this.querySelector('p').textContent='Gracias. (Prototipo: el formulario aún no envía nada.)'">
-<label for="nl" class="sr">Email</label><input id="nl" type="email" required placeholder="tu@email.com" /> <button class="btn">Suscribirme</button>
-<label class="chk"><input type="checkbox" required/> Acepto la <a href="/privacidad/" style="color:#BFF2D6">política de privacidad</a> (RGPD)</label><p></p></form></section>
+<Newsletter country="es" source="home-es"/>
 <Faq faqs={faqs}/>
 </Base>
 <style>

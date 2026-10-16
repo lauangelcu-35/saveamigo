@@ -14,6 +14,6 @@ const P = 'pending verification';
 <td data-l="Risk"><span class={'risk '+p.risk} title={p.risk_reason}>{({bajo:'low',medio:'medium',alto:'high'})[p.risk]}</span><br/><small>{p.risk_reason}</small></td>
 <td data-l="Verified">{p.verified ? <span>✅ <time datetime={p.last_verified}>{p.last_verified}</time></span> : <span class="pend">⏳ {P}</span>}<br/><a href={p.source} rel="nofollow noopener" target="_blank">official source<span class="sr"> for {p.name}</span></a></td>
 <td data-l="Link">{ref ? <Fragment><a class="ref" href={ref} rel="sponsored nofollow noopener" target="_blank">Open {referrals[p.id].label} →</a><span class="reflabel">referral link: we may receive a bonus if you sign up</span></Fragment>
-  : (p.affiliate_url && <a class="aff" href={p.affiliate_url} rel="sponsored nofollow">[affiliate link · PLACEHOLDER]</a>)}</td>
+  : (p.affiliate_url && !p.affiliate_url.startsWith("#") && <a class="aff" href={p.affiliate_url} rel="sponsored nofollow">[affiliate link · PLACEHOLDER]</a>)}</td>
 </tr>; })}
 </tbody></table></div>

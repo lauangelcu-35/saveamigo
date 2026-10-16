@@ -1,4 +1,5 @@
 ---
+import Newsletter from '../../components/Newsletter.astro';
 import Base from '../../layouts/Base.astro';
 import Faq from '../../components/Faq.astro';
 import { REGIONS } from '../../data/en.js';
@@ -23,6 +24,7 @@ const rl = {bajo:'low',medio:'medium',alto:'high'};
 <div class="cards">{Object.entries(R.cats).map(([k,c])=> <a class="card" style="text-decoration:none;color:inherit" href={`/${region}/compare/${k}/`}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div>
 <p>Before choosing, read <a href={`/${region}/learn/`}>the basics explained</a>.</p>
 <Faq faqs={faqs} title="Frequently asked questions"/>
+<Newsletter country={Astro.params.region} source="home"/>
 </Base>
 <style>
 .hero{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;padding:40px 0 20px}.lead{font-size:1.1rem;max-width:640px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
