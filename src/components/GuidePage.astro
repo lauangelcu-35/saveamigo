@@ -9,9 +9,9 @@ const { g } = Astro.props;
 const en = g.lang==='en';
 const url = gPath(g);
 const idx = en?'/guides/':'/guias/';
-const quiz = {es:'/quiz/',mx:'/mx/quiz/',us:'/us/quiz/',uk:'/uk/quiz/',nomads:'/nomads/quiz/'}[g.country];
-const inLang = {es:'es-ES',mx:'es-MX',us:'en-US',uk:'en-GB',nomads:'en'}[g.country];
-const art = {'@context':'https://schema.org','@type':'Article',headline:g.title,description:g.desc,url:SITE_URL+url,mainEntityOfPage:SITE_URL+url,datePublished:GUIDE_DATE,dateModified:GUIDE_DATE,inLanguage:inLang,image:SITE_URL+'/og/'+({es:'default'}[g.country]||g.country)+'.png',author:{'@id':SITE_URL+'/#org'},publisher:{'@id':SITE_URL+'/#org'}};
+const quiz = {es:'/quiz/',mx:'/mx/quiz/',co:'/co/quiz/',us:'/us/quiz/',uk:'/uk/quiz/',nomads:'/nomads/quiz/'}[g.country];
+const inLang = {es:'es-ES',mx:'es-MX',co:'es-CO',us:'en-US',uk:'en-GB',nomads:'en'}[g.country];
+const art = {'@context':'https://schema.org','@type':'Article',headline:g.title,description:g.desc,url:SITE_URL+url,mainEntityOfPage:SITE_URL+url,datePublished:GUIDE_DATE,dateModified:GUIDE_DATE,inLanguage:inLang,image:SITE_URL+'/og/'+({es:'default',co:'default'}[g.country]||g.country)+'.png',author:{'@id':SITE_URL+'/#org'},publisher:{'@id':SITE_URL+'/#org'}};
 const others = GUIDES.filter(x=>x.lang===g.lang && x.slug!==g.slug);
 ---
 <Base country={g.country} title={g.title} description={g.desc} ogType="article" crumbs={[[en?'Guides':'Guías',idx],[g.title,url]]} jsonld={[art, faqLd(g.faqs)]}>

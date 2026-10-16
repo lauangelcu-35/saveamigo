@@ -2,17 +2,23 @@
 export const NAV = {
   es: { home:'/', homeName:'Inicio', sym:'€', flag:'🇪🇸 ES', links:[['Comparar','/comparar/cuentas/'],['Aprende','/aprende/'],['Guías','/guias/'],['Metodología','/metodologia/'],['Nómadas','/nomadas/']], cta:['¿Ahorrar o invertir?','/quiz/'] },
   mx: { home:'/mx/', homeName:'Inicio México', sym:'$', flag:'🇲🇽 MX', links:[['Comparar','/mx/comparar/cuentas/'],['Aprende','/mx/aprende/'],['Guías','/guias/'],['Nómadas','/nomadas/']], cta:['¿Ahorrar o invertir?','/mx/quiz/'] },
+  co: { home:'/co/', homeName:'Inicio Colombia', sym:'$', flag:'🇨🇴 CO', links:[['Comparar','/co/comparar/cuentas/'],['Aprende','/co/aprende/'],['Guías','/guias/'],['Nómadas','/nomadas/']], cta:['¿Ahorrar o invertir?','/co/quiz/'] },
   us: { home:'/us/', homeName:'US home', sym:'$', flag:'🇺🇸 US', links:[['Compare','/us/compare/savings/'],['Learn','/us/learn/'],['Guides','/guides/'],['Quiz','/us/quiz/']], cta:['Save or invest?','/us/quiz/'] },
   uk: { home:'/uk/', homeName:'UK home', sym:'£', flag:'🇬🇧 UK', links:[['Compare','/uk/compare/savings/'],['Learn','/uk/learn/'],['Guides','/guides/'],['Quiz','/uk/quiz/']], cta:['Save or invest?','/uk/quiz/'] },
   nomads: { home:'/nomads/', homeName:'Nomads home', sym:'🌍', flag:'🌍 Nomads', links:[['Compare','/nomads/compare/accounts/'],['Learn','/nomads/learn/'],['Guides','/guides/'],['Quiz','/nomads/quiz/'],['Resumen ES','/nomadas/']], cta:['Save or invest?','/nomads/quiz/'] },
 };
 export const CLUSTERS = [
-  { 'es-ES':'/', 'es-MX':'/mx/', 'en-US':'/us/', 'en-GB':'/uk/' },
-  { 'es-ES':'/quiz/', 'es-MX':'/mx/quiz/', 'en-US':'/us/quiz/', 'en-GB':'/uk/quiz/' },
-  { 'es-ES':'/aprende/', 'es-MX':'/mx/aprende/', 'en-US':'/us/learn/', 'en-GB':'/uk/learn/' },
-  { 'es-ES':'/privacidad/', 'es-MX':'/mx/privacidad/', 'en':'/en/privacy/' },
+  { 'es-ES':'/', 'es-MX':'/mx/', 'es-CO':'/co/', 'en-US':'/us/', 'en-GB':'/uk/' },
+  { 'es-ES':'/quiz/', 'es-MX':'/mx/quiz/', 'es-CO':'/co/quiz/', 'en-US':'/us/quiz/', 'en-GB':'/uk/quiz/' },
+  { 'es-ES':'/aprende/', 'es-MX':'/mx/aprende/', 'es-CO':'/co/aprende/', 'en-US':'/us/learn/', 'en-GB':'/uk/learn/' },
+  { 'es-ES':'/privacidad/', 'es-MX':'/mx/privacidad/', 'es-CO':'/co/privacidad/', 'en':'/en/privacy/' },
   { 'en':'/nomads/', 'es':'/nomadas/' },
   { 'es':'/guias/', 'en':'/guides/' },
+  { 'es-ES':'/comparar/cuentas/', 'es-MX':'/mx/comparar/cuentas/', 'es-CO':'/co/comparar/cuentas/' },
+  { 'es-ES':'/comparar/depositos/', 'es-CO':'/co/comparar/cdt/' },
+  { 'es-ES':'/comparar/letras/', 'es-MX':'/mx/comparar/cetes/', 'es-CO':'/co/comparar/tes/' },
+  { 'es-ES':'/comparar/fondos/', 'es-MX':'/mx/comparar/inversion/', 'es-CO':'/co/comparar/inversion/' },
+  { 'es-ES':'/comparar/cripto/', 'es-MX':'/mx/comparar/cripto/', 'es-CO':'/co/comparar/cripto/' },
 ];
 export const REGIONS = {
   us: {

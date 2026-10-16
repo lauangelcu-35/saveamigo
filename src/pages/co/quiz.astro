@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import Quiz from '../../components/Quiz.astro';
+import Faq from '../../components/Faq.astro';
+import { faqLd } from '../../lib/seo.js';
+import { SITE_URL } from '../../data/site.js';
+const faqs=[['¿Qué hago primero, ahorrar o invertir?','En general, primero liquidar deudas caras y tener un fondo de emergencia de 3–6 meses; después, invertir el dinero que no necesitarás en 5+ años.'],['¿El resultado del quiz es una recomendación?','No. Es una orientación informativa basada en reglas generales, no asesoramiento financiero personalizado.'],['¿Guardáis mis respuestas?','El quiz funciona en tu navegador. Solo si dejas tu email (opcional, con consentimiento) se envía tu resultado.']];
+const quizLd={'@context':'https://schema.org','@type':'Quiz',name:'¿Ahorrar, invertir o los dos?',about:'Educación financiera básica: ahorro e inversión',educationalUse:'self-assessment',inLanguage:'es-CO',url:SITE_URL+'/co/quiz/',isAccessibleForFree:true};
+---
+<Base title="Quiz: ¿ahorrar, invertir o los dos? (Colombia)" description="Quiz gratuito de 7 preguntas para saber si te conviene ahorrar primero, invertir o combinar ambos en Colombia. Informativo, no es asesoramiento." country="co" crumbs={[["Quiz","/co/quiz/"]]} jsonld={[quizLd, faqLd(faqs)]}>
+<span class="eyebrow">Quiz · 7 preguntas · 2 min</span>
+<h1>¿Ahorrar, invertir o los dos?</h1>
+<p class="answer">Si tienes deudas caras o menos de 3 meses de gastos ahorrados, lo habitual es <strong>ahorrar primero</strong>. Con el colchón hecho, el dinero que no necesitarás en 5+ años puede invertirse. Responde 7 preguntas para ver tu caso.</p>
+<Quiz country="co"/>
+<Faq faqs={faqs}/>
+</Base>

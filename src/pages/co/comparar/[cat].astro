@@ -1,0 +1,29 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Table from '../../../components/Table.astro';
+import Faq from '../../../components/Faq.astro';
+import data from '../../../data/products_co.json';
+import { categoriesCo as categories } from '../../../data/categories_co.js';
+import { catFaqCo as catFaqEs } from '../../../data/faqs.js';
+import { faqLd, productsLd } from '../../../lib/seo.js';
+export function getStaticPaths(){ return Object.keys(categories).map(cat=>({params:{cat}})); }
+const { cat } = Astro.params; const c = categories[cat]; const f = catFaqEs[cat];
+const items = data.products.filter(p=>p.category===cat);
+const url = `/co/comparar/${cat}/`;
+const v = items.filter(p=>p.verified).length;
+---
+<Base title={`${c.title} en Colombia: comparativa ${data.updated.slice(0,7)}`} description={`${c.title} en Colombia comparados: ${f.answer.slice(0,110)}…`} country="co" crumbs={[['Comparar','/co/comparar/cuentas/'],[c.title,url]]} jsonld={[faqLd(f.faqs), productsLd(items,url)]}>
+<nav class="tabs" aria-label="Categorías">{Object.entries(categories).map(([k,x])=> <a class={k===cat?"on":""} href={'/co/comparar/'+k+'/'} aria-current={k===cat?'page':undefined}>{x.title}</a>)}</nav>
+<article>
+<h1>{c.title} en Colombia</h1>
+<p class="answer">{f.answer}</p>
+<p class="meta">Actualizado <time datetime={data.updated}>{data.updated}</time> · {v} de {items.length} verificados en fuente oficial</p>
+{cat==='cripto' && <div class="warn danger"><strong>⚠️ Riesgo alto.</strong> Sin Fogafín y fuera de la supervisión de la Superfinanciera; el precio puede caer más del 80%.</div>}
+<h2 style="margin-top:28px">Comparativa</h2>
+<Table items={items}/>
+<p><small>Orden: tal como se recogen los datos, no un ranking patrocinado. Valores "pendiente de verificar" no se han podido confirmar en la web oficial y no deben usarse para decidir. Fuentes: enlace "fuente oficial" de cada fila · <a href="/co/aprende/">cómo leemos la protección (Fogafín y Superfinanciera)</a>.</small></p>
+<p>¿No sabes si te toca ahorrar o invertir? Haz el <a href="/co/quiz/">quiz ¿Ahorrar, invertir o los dos?</a> o repasa <a href="/co/aprende/">lo básico</a>.</p>
+<Faq faqs={f.faqs}/>
+</article>
+</Base>
+<style>.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.tabs a{background:#fff;border:1px solid var(--line);padding:8px 16px;border-radius:100px;text-decoration:none;color:var(--ink);font-size:.88rem;font-weight:500}.tabs a.on{background:var(--ink);color:#fff}</style>

@@ -64,6 +64,23 @@ export const GUIDES = [
    ['¿Los CETES están protegidos por el IPAB?','No: el IPAB protege depósitos bancarios. Los CETES son deuda del Gobierno Federal, por lo que el riesgo es el del propio Gobierno.']],
   related:[['Tabla de CETES','/mx/comparar/cetes/'],['Cuentas y apps con rendimiento','/mx/comparar/cuentas/'],['Quiz México','/mx/quiz/']] },
 
+{ slug:'cdt-para-principiantes', lang:'es', country:'co', title:'CDT para principiantes: qué es y cómo funciona en Colombia',
+  desc:'Qué es un CDT y cómo funciona, cómo compararlo (tasa E.A., plazo, retención en la fuente), qué cubre Fogafín y CDT vs cuenta de ahorros o bolsillos. Guía para principiantes en Colombia.',
+  query:'cdt qué es y cómo funciona',
+  answer:'Un CDT (certificado de depósito a término) es un depósito en el que entregas tu dinero a una entidad financiera durante un plazo fijo a cambio de una tasa de interés pactada al abrirlo. En entidades inscritas en Fogafín está asegurado hasta $50 millones por depositante y entidad. Normalmente no puedes retirar el dinero antes del vencimiento.',
+  sections:[
+   ['Cómo funciona un CDT','<ol><li>Eliges entidad, monto y plazo (por ejemplo 90, 180 o 360 días).</li><li>La entidad fija la tasa E.A. (efectiva anual) al abrirlo; puede ser fija o variable según el producto.</li><li>Eliges si cobras intereses al vencimiento o periódicamente.</li><li>Al vencer, recibes capital más intereses (menos la retención en la fuente) o lo renuevas.</li></ol><p>Muchas entidades permiten abrir CDT 100% digitales. Compara tasas actuales en nuestra <a href="/co/comparar/cdt/">tabla de CDT</a>; lo que no hemos confirmado aparece como <span class="pend">pendiente de verificar</span>.</p>'],
+   ['CDT vs cuenta de ahorros o bolsillos','<p>Una <a href="/co/comparar/cuentas/">cuenta de ahorros o bolsillo</a> te deja sacar la plata cuando quieras: ideal para el fondo de emergencia. Un CDT suele pagar una tasa fija a cambio de inmovilizarla. Ambos están cubiertos por el <a href="https://www.fogafin.gov.co/que-es-el-seguro-de-depositos">Seguro de Depósitos de Fogafín</a> si la entidad está inscrita. Algunas apps ofrecen "bóvedas" o ahorro a plazo que no son CDT: lee el reglamento.</p>'],
+   ['Antes de abrir un CDT: checklist','<ul><li>La entidad está en la lista de vigiladas de la <a href="https://www.superfinanciera.gov.co/">Superintendencia Financiera</a> y tiene el sello de Fogafín.</li><li>No superas $50 millones por entidad si quieres estar totalmente cubierto.</li><li>Comparas por tasa E.A. y mismo plazo.</li><li>Sabes que sobre los rendimientos hay retención en la fuente y se declaran en renta (porcentajes vigentes en la <a href="https://www.dian.gov.co/">DIAN</a>).</li><li>Tienes en cuenta el 4x1000 al mover dinero entre cuentas.</li></ul>'],
+   ['¿Y los TES o fondos?','<p>Para dinero a 5+ años, mira <a href="/co/comparar/inversion/">fondos de inversión colectiva y ETFs</a>; para deuda de la Nación, los <a href="/co/comparar/tes/">TES</a> (hoy, para personas naturales, sobre todo vía comisionista o ETF). Ninguno tiene Fogafín ni rentabilidad garantizada si vendes antes.</p>'],
+  ],
+  faqs:[['¿Qué es un CDT y cómo funciona?','Es un depósito a término: entregas dinero por un plazo fijo y la entidad te paga una tasa pactada al abrirlo. Al vencimiento recibes capital e intereses o lo renuevas.'],
+   ['¿Un CDT es seguro?','Si la entidad está vigilada por la Superfinanciera e inscrita en Fogafín, el CDT está asegurado hasta $50 millones por depositante y entidad.'],
+   ['¿Puedo sacar la plata de un CDT antes?','Por regla general no: el dinero queda inmovilizado hasta el vencimiento. Revisa las condiciones de cada entidad.'],
+   ['¿CDT o cuenta de ahorros?','La cuenta o bolsillo da liquidez para el fondo de emergencia; el CDT suele dar una tasa fija para dinero que no tocarás durante el plazo. Muchos principiantes combinan ambos.'],
+   ['¿Cobran 4x1000 en un CDT?','El 4x1000 se aplica a retiros y transferencias desde cuentas; tenlo en cuenta al mover el dinero hacia y desde el CDT, salvo que uses una cuenta exenta.']],
+  related:[['Tabla de CDT en Colombia','/co/comparar/cdt/'],['Cuentas de ahorro y bolsillos','/co/comparar/cuentas/'],['Quiz Colombia','/co/quiz/']] },
+
 { slug:'high-yield-savings-vs-cd-vs-index-funds', lang:'en', country:'us', title:'High-yield savings vs CDs vs index funds: a beginner guide (US)',
   desc:'High-yield savings vs CD vs index funds: liquidity, risk, FDIC and SIPC protection, and which fits each goal. Beginner guide with official US sources.',
   query:'high yield savings vs cd vs index funds',

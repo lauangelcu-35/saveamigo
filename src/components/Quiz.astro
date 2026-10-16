@@ -2,17 +2,19 @@
 import { NEWSLETTER_ENDPOINT, FIELD_MAP } from '../data/site.js';
 const { country = 'es' } = Astro.props;
 const mx = country === 'mx';
+const co = country === 'co';
 const Q = [
  ['fondo','¿Cuántos meses de gastos tienes ahorrados y disponibles (fondo de emergencia)?',[['0','Nada o casi nada'],['1','Menos de 3 meses'],['2','Entre 3 y 6 meses'],['3','Más de 6 meses']]],
- ['deuda', mx ? '¿Tienes deudas caras (tarjeta de crédito sin liquidar, préstamos personales con CAT alto)?' : '¿Tienes deudas caras (tarjeta revolving, préstamos personales o al consumo con TAE alta)?',[['si','Sí'],['no','No']]],
+ ['deuda', (mx||co) ? '¿Tienes deudas caras (tarjeta de crédito sin liquidar, préstamos personales con tasa alta)?' : '¿Tienes deudas caras (tarjeta revolving, préstamos personales o al consumo con TAE alta)?',[['si','Sí'],['no','No']]],
  ['plazo','¿Cuándo crees que necesitarás este dinero?',[['0','En menos de 1 año'],['1','Entre 1 y 3 años'],['2','Entre 3 y 5 años'],['3','En más de 5 años']]],
  ['ingresos','¿Cómo de estables son tus ingresos?',[['0','Inestables o variables'],['1','Bastante estables'],['2','Muy estables']]],
  ['perdida', mx ? 'Si tu inversión bajara un 30% en unos meses, ¿qué harías?' : 'Si tu inversión bajara un 30% en unos meses, ¿qué harías?',[['0','Vendería todo para no perder más'],['1','Me preocuparía, pero esperaría'],['2','Mantendría o aportaría más']]],
- ['objetivo','¿Cuál es tu objetivo principal con este dinero?',[['0','Tener un colchón para imprevistos'],['1', mx ? 'Un gasto concreto (enganche de casa, coche, viaje)' : 'Un gasto concreto (entrada de piso, coche, viaje)'],['2','Hacer crecer mi patrimonio / jubilación']]],
- ['saber','¿Cuánto sabes de inversión?',[['0','Nada, estoy empezando'],['1', mx ? 'Lo básico (sé qué son CETES o un fondo)' : 'Lo básico (sé qué es un fondo indexado)'],['2','Ya he invertido antes']]],
+ ['objetivo','¿Cuál es tu objetivo principal con este dinero?',[['0','Tener un colchón para imprevistos'],['1', (mx||co) ? 'Un gasto concreto (cuota inicial / enganche de casa, coche, viaje)' : 'Un gasto concreto (entrada de piso, coche, viaje)'],['2','Hacer crecer mi patrimonio / jubilación']]],
+ ['saber','¿Cuánto sabes de inversión?',[['0','Nada, estoy empezando'],['1', co ? 'Lo básico (sé qué es un CDT o un fondo)' : mx ? 'Lo básico (sé qué son CETES o un fondo)' : 'Lo básico (sé qué es un fondo indexado)'],['2','Ya he invertido antes']]],
 ];
-const L = mx ? { cuentas:'/mx/comparar/cuentas/', seguro:'/mx/comparar/cetes/', fondos:'/mx/comparar/inversion/', cripto:'/mx/comparar/cripto/', aprende:'/mx/aprende/', priv:'/mx/privacidad/', law:'LFPDPPP', prot:'IPAB o PROSOFIPO' }
- : { cuentas:'/comparar/cuentas/', seguro:'/comparar/letras/', fondos:'/comparar/fondos/', cripto:'/comparar/cripto/', aprende:'/aprende/', priv:'/privacidad/', law:'RGPD', prot:'FGD' };
+const L = co ? { cuentas:'/co/comparar/cuentas/', seguro:'/co/comparar/cdt/', fondos:'/co/comparar/inversion/', cripto:'/co/comparar/cripto/', aprende:'/co/aprende/', priv:'/co/privacidad/', law:'Ley 1581 de 2012', prot:'Fogafín', segName:'CDT o TES' }
+ : mx ? { cuentas:'/mx/comparar/cuentas/', seguro:'/mx/comparar/cetes/', fondos:'/mx/comparar/inversion/', cripto:'/mx/comparar/cripto/', aprende:'/mx/aprende/', priv:'/mx/privacidad/', law:'LFPDPPP', prot:'IPAB o PROSOFIPO', segName:'CETES' }
+ : { cuentas:'/comparar/cuentas/', seguro:'/comparar/letras/', fondos:'/comparar/fondos/', cripto:'/comparar/cripto/', aprende:'/aprende/', priv:'/privacidad/', law:'RGPD', prot:'FGD', segName:'Letras del Tesoro / depósitos' };
 const cfg = { L, endpoint: NEWSLETTER_ENDPOINT, F: FIELD_MAP, country };
 ---
 <form id="quiz" class="card" novalidate>
@@ -58,8 +60,8 @@ function result(){const d=Object.fromEntries(new FormData(f));const n=k=>+d[k];l
   if(n('perdida')===2)why.push('Toleras bien las caídas temporales.');
   if(n('ingresos')===0)why.push('Con ingresos variables conviene un colchón mayor.');
   why.push('Ya tienes un fondo de emergencia de 3+ meses.');}
- const R={ahorrar:['Ahorrar primero','Antes de invertir, prioriza '+(d.deuda==='si'?'liquidar las deudas caras y ':'')+'construir un fondo de emergencia de 3–6 meses de gastos en un producto sin riesgo y con '+L.prot+'. Compara '+a(L.cuentas,'cuentas remuneradas')+' y '+a(L.seguro, cfg.country==='mx'?'CETES':'Letras del Tesoro / depósitos')+'.'],
-  dos:['Los dos','Mantén tu fondo de emergencia en '+a(L.cuentas,'cuentas con protección ('+L.prot+')')+', usa '+a(L.seguro,cfg.country==='mx'?'CETES':'Letras o depósitos')+' para objetivos a 1–3 años y, si quieres, empieza a invertir poco a poco una parte en '+a(L.fondos,'fondos indexados')+' para el largo plazo.'],
+ const R={ahorrar:['Ahorrar primero','Antes de invertir, prioriza '+(d.deuda==='si'?'liquidar las deudas caras y ':'')+'construir un fondo de emergencia de 3–6 meses de gastos en un producto sin riesgo y con '+L.prot+'. Compara '+a(L.cuentas,'cuentas remuneradas')+' y '+a(L.seguro, L.segName)+'.'],
+  dos:['Los dos','Mantén tu fondo de emergencia en '+a(L.cuentas,'cuentas con protección ('+L.prot+')')+', usa '+a(L.seguro,L.segName)+' para objetivos a 1–3 años y, si quieres, empieza a invertir poco a poco una parte en '+a(L.fondos,'fondos indexados')+' para el largo plazo.'],
   invertir:['Invertir','Con tu fondo de emergencia cubierto y un horizonte largo, tiene sentido informarse sobre '+a(L.fondos,'fondos indexados y roboadvisors')+' de bajo coste, con aportaciones periódicas. La '+a(L.cripto,'cripto')+' es de riesgo alto: como mucho, una parte pequeña que puedas perder.']};
  document.getElementById('rtitle').textContent=R[key][0];
  document.getElementById('rbody').innerHTML='<p class="answer">'+R[key][1]+'</p><h3>Por qué</h3><ul>'+why.map(w=>'<li>'+w+'</li>').join('')+'</ul><p>¿Nuevo en esto? Empieza por '+a(L.aprende,'lo básico')+'.</p>';

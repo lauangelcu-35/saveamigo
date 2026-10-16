@@ -1,0 +1,30 @@
+---
+import Newsletter from '../../components/Newsletter.astro';
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import data from '../../data/products_co.json';
+import { categoriesCo } from '../../data/categories_co.js';
+import { faqLd } from '../../lib/seo.js';
+const top = data.products.filter(p=>p.verified && ['cuentas','cdt'].includes(p.category));
+const v = data.products.filter(p=>p.verified).length;
+const faqs=[['¿Dónde pongo mis ahorros en Colombia si soy principiante?','Primero un fondo de emergencia en una cuenta de ahorros o bolsillo de una entidad vigilada por la Superfinanciera e inscrita en Fogafín. Para metas con fecha, CDT. Para 5+ años, fondos de inversión colectiva o ETFs, sabiendo que pueden bajar.'],['¿Cuánto cubre Fogafín?','Hasta $50 millones por depositante en cada entidad inscrita (bancos, corporaciones financieras, compañías de financiamiento y SEDPES). Fuente: fogafin.gov.co.'],['¿Qué es el 4x1000?','El Gravamen a los Movimientos Financieros: $4 por cada $1.000 que retiras o transfieres. Puedes marcar una cuenta como exenta hasta 350 UVT al mes.'],['¿La cripto tiene protección en Colombia?','No: no tiene Fogafín y la Superfinanciera no supervisa las plataformas de criptoactivos.']];
+---
+<Base country="co" title="Dónde poner tu dinero en Colombia: comparador para principiantes" description="Compara Pibank, Lulo Bank, RappiPay, Nu Colombia, CDT, TES, fondos de inversión colectiva, iCOLCAP y cripto en Colombia. Fogafín, Superfinanciera y 4x1000 explicados. No es asesoría." jsonld={[faqLd(faqs)]}>
+<section class="hero"><div><span class="eyebrow">Comparador · Colombia</span><h1>¿Dónde pongo mi plata en Colombia?</h1>
+<p class="lead answer">Respuesta corta: antes de mirar la tasa E.A., revisa que la entidad esté vigilada por la Superfinanciera e inscrita en Fogafín (seguro hasta $50 millones por depositante y entidad). CDT para dinero con fecha; fondos y ETFs a 5+ años; cripto sin protección.</p>
+<p class="actions"><a class="btn" href="/co/quiz/">¿Ahorrar, invertir o los dos? Haz el quiz →</a> <a class="btn ghost" href="/co/comparar/cuentas/">Ver comparativas</a></p></div>
+<div class="hero-panel"><div class="eyebrow">Protección</div><p><span class="risk bajo">Fogafín</span> Cuentas y CDT en entidades inscritas</p><p><span class="risk medio">ninguna</span> FIC, ETFs y TES (inversión)</p><p><span class="risk alto">ninguna</span> Cripto</p><small>{v} de {data.products.length} datos verificados en fuente oficial · <time datetime={data.updated}>{data.updated}</time></small></div></section>
+<h2>Datos verificados esta semana</h2>
+<div class="cards">{top.map(p=> <div class="card prod"><span class={'risk '+p.risk}>riesgo {p.risk}</span><h3>{p.name}</h3><p class="rate">{p.rate}</p><small>{p.guarantee}<br/>✅ verificado {p.last_verified} · <a href={p.source} rel="nofollow noopener">fuente<span class="sr"> de {p.name}</span></a></small></div>)}</div>
+<h2>Compara por tipo de producto</h2>
+<div class="cards">{Object.entries(categoriesCo).map(([k,c])=> <a class="card" style="text-decoration:none;color:inherit" href={'/co/comparar/'+k+'/'}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div>
+<p>Antes de elegir, lee <a href="/co/aprende/">Fogafín, Superfinanciera y 4x1000 explicados</a> o la <a href="/guias/cdt-para-principiantes/">guía de CDT para principiantes</a>.</p>
+<Faq faqs={faqs}/>
+<Newsletter country="co" source="home"/>
+</Base>
+<style>
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;padding:40px 0 20px}.lead{font-size:1.1rem;max-width:640px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero-panel{background:linear-gradient(150deg,#fff 0%,#E6F7EE 100%);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow)}.hero-panel p{display:flex;gap:12px;align-items:center;margin:14px 0;color:var(--ink)}
+.prod{display:flex;flex-direction:column;gap:6px}.prod .rate{font-family:'Space Grotesk';font-size:1.25rem;font-weight:700;color:var(--brand);margin:4px 0}.prod small{color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+</style>

@@ -200,5 +200,58 @@
     "url": "https://invite.kraken.com/JDNW/guntkgax",
     "label": "Kraken"
   },
-  "_doc_en": "English sections (us-/uk-/nm-). Revolut referral omitted for US: the Spanish-issued code is not confirmed to work with Revolut US. Empty url = no link."
+  "_doc_en": "English sections (us-/uk-/nm-). Revolut referral omitted for US: the Spanish-issued code is not confirmed to work with Revolut US. Empty url = no link.",
+  "co-kraken": {
+    "url": "https://invite.kraken.com/JDNW/guntkgax",
+    "label": "Kraken (Colombia)"
+  },
+  "co-binance": {
+    "url": "https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_9Y2PJ&utm_source=referral_entrance",
+    "label": "Binance (Colombia)"
+  },
+  "co-pibank": {
+    "url": "",
+    "label": "co-pibank"
+  },
+  "co-lulo": {
+    "url": "",
+    "label": "co-lulo"
+  },
+  "co-rappipay": {
+    "url": "",
+    "label": "co-rappipay"
+  },
+  "co-nu": {
+    "url": "",
+    "label": "co-nu"
+  },
+  "co-lulo-cdt": {
+    "url": "",
+    "label": "co-lulo-cdt"
+  },
+  "co-rappipay-boveda": {
+    "url": "",
+    "label": "co-rappipay-boveda"
+  },
+  "co-pibank-cdt": {
+    "url": "",
+    "label": "co-pibank-cdt"
+  },
+  "co-bancolombia-cdt": {
+    "url": "",
+    "label": "co-bancolombia-cdt"
+  },
+  "co-icolcap": {
+    "url": "",
+    "label": "co-icolcap"
+  },
+  "co-fic": {
+    "url": "",
+    "label": "co-fic"
+  },
+  "co-tes-etf": {
+    "url": "",
+    "label": "co-tes-etf"
+  },
+  "_doc_co": "Colombia (co-): solo Kraken y Binance tienen enlace (ambos sirven Colombia). Sin referidos para bancos/fintech colombianos; Revolut no opera en Colombia."
 }

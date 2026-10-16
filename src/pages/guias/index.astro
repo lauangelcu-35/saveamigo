@@ -6,10 +6,10 @@ import { SITE_URL } from '../../data/site.js';
 const gs = GUIDES.filter(g=>g.lang==='es');
 const ld = {'@context':'https://schema.org','@type':'CollectionPage',name:'Guías de ahorro e inversión para principiantes',url:SITE_URL+'/guias/',inLanguage:'es',hasPart:gs.map(g=>({'@type':'Article',headline:g.title,url:SITE_URL+gPath(g)}))};
 ---
-<Base title="Guías de ahorro e inversión para principiantes (España y México)" description="Guías sencillas basadas en lo que más se busca: ahorrar o invertir primero, cuenta remunerada o depósito, Letras del Tesoro y CETES. Con fuentes oficiales." crumbs={[['Guías','/guias/']]} jsonld={[ld]}>
+<Base title="Guías de ahorro e inversión para principiantes (España, México y Colombia)" description="Guías sencillas basadas en lo que más se busca: ahorrar o invertir primero, cuenta remunerada o depósito, Letras del Tesoro, CETES y CDT. Con fuentes oficiales." crumbs={[['Guías','/guias/']]} jsonld={[ld]}>
 <h1>Guías para principiantes</h1>
-<p class="answer">Respuestas claras a las dudas más buscadas sobre ahorro e inversión en España y México, con enlaces a fuentes oficiales (Banco de España, FGD, CNMV, tesoro.es, Banxico, IPAB, CONDUSEF) y a nuestras tablas comparativas.</p>
-<div class="cards">{gs.map(g=> <a class="card" style="text-decoration:none;color:inherit" href={gPath(g)}><span class="meta">{g.country==='mx'?'🇲🇽 México':'🇪🇸 España'}</span><h2 style="font-size:1.2rem">{g.title}</h2><p>{g.desc}</p></a>)}</div>
+<p class="answer">Respuestas claras a las dudas más buscadas sobre ahorro e inversión en España y México, con enlaces a fuentes oficiales (Banco de España, FGD, CNMV, tesoro.es, Banxico, IPAB, CONDUSEF, Fogafín, Superfinanciera) y a nuestras tablas comparativas.</p>
+<div class="cards">{gs.map(g=> <a class="card" style="text-decoration:none;color:inherit" href={gPath(g)}><span class="meta">{({mx:'🇲🇽 México',co:'🇨🇴 Colombia'})[g.country]||'🇪🇸 España'}</span><h2 style="font-size:1.2rem">{g.title}</h2><p>{g.desc}</p></a>)}</div>
 <p>¿Prefieres ir al grano? <a href="/quiz/">Quiz España</a> · <a href="/mx/quiz/">Quiz México</a> · <a href="/comparar/cuentas/">Comparar cuentas</a> · <a href="/mx/comparar/cetes/">CETES</a> · <a href="/guides/" lang="en">Guides in English</a></p>
 <Newsletter country="es" source="guias-index"/>
 </Base>

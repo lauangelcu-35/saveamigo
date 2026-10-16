@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import { faqLd, articleLd } from '../../lib/seo.js';
+const D='2026-10-16';
+const ex=[['¿Qué es Fogafín y cuánto cubre?','El Fondo de Garantías de Instituciones Financieras administra el Seguro de Depósitos: si una entidad inscrita es liquidada, devuelve hasta $50 millones por depositante en cada entidad. Es gratis y automático. Cubre cuentas de ahorro y corrientes, CDT, depósitos de bajo monto y otros depósitos; no cubre productos fiduciarios, seguros ni bonos ordinarios. Fuente: fogafin.gov.co.'],
+['¿Qué entidades están inscritas en Fogafín?','Bancos, corporaciones financieras, compañías de financiamiento y SEDPES (sociedades especializadas en depósitos y pagos electrónicos). Los productos protegidos llevan el sello del Seguro de Depósitos.'],
+['¿Qué hace la Superintendencia Financiera (SFC)?','Autoriza y vigila bancos, compañías de financiamiento, fiduciarias, comisionistas de bolsa y fondos. Antes de abrir un producto, busca la entidad en la lista de vigiladas en superfinanciera.gov.co. La SFC no supervisa las plataformas de criptoactivos.'],
+['¿Qué es el 4x1000 (GMF)?','El Gravamen a los Movimientos Financieros cobra $4 por cada $1.000 que retiras o transfieres. Puedes marcar una sola cuenta de ahorros como exenta, hasta 350 UVT al mes (el valor de la UVT lo fija cada año la DIAN). Fuente: dian.gov.co.'],
+['Tasa E.A. y retención en la fuente','E.A. es la tasa efectiva anual, la que conviene comparar. Sobre los rendimientos de cuentas y CDT se practica retención en la fuente y se declaran en renta; revisa los porcentajes vigentes en la DIAN.'],
+['TES y Banco de la República','Los TES los emite el Ministerio de Hacienda; el Banco de la República actúa como agente en las subastas y publica las tasas del mercado. Una persona natural suele acceder vía comisionista de bolsa o el ETF de TES.']];
+const art=articleLd('Fogafín, Superfinanciera y 4x1000 explicados','Protección del ahorro en Colombia para principiantes','/co/aprende/',D); art.inLanguage='es-CO';
+---
+<Base country="co" title="Aprende (Colombia): Fogafín, Superfinanciera, 4x1000 y CDT explicados" description="Qué cubre Fogafín ($50 millones por depositante y entidad), qué vigila la Superfinanciera, cómo funciona el 4x1000 y la exención de 350 UVT, y qué son los TES." crumbs={[['Aprende','/co/aprende/']]} jsonld={[faqLd(ex),art]}>
+<article>
+<h1>Protección del ahorro en Colombia, explicada</h1>
+<p class="answer">En Colombia, tus depósitos en entidades inscritas en Fogafín (bancos, compañías de financiamiento, SEDPES) están asegurados hasta $50 millones por depositante y entidad. Los fondos, ETFs, TES y la cripto no tienen ese seguro. Y cada retiro o transferencia paga 4x1000, salvo en una cuenta marcada como exenta.</p>
+<p class="meta">Actualizado <time datetime={D}>{D}</time> · Fuentes: <a href="https://www.fogafin.gov.co/que-es-el-seguro-de-depositos">Fogafín</a>, <a href="https://www.superfinanciera.gov.co/">Superfinanciera</a>, <a href="https://www.banrep.gov.co/">Banco de la República</a>, <a href="https://www.irc.gov.co/">MinHacienda (IRC)</a>, <a href="https://www.dian.gov.co/">DIAN</a></p>
+<div class="cards">{ex.map(([t,b])=> <section class="card"><h2 style="font-size:1.2rem;margin-top:0">{t}</h2><p>{b}</p></section>)}</div>
+<p>Compara: <a href="/co/comparar/cuentas/">cuentas</a> · <a href="/co/comparar/cdt/">CDT</a> · <a href="/co/comparar/tes/">TES</a> · <a href="/co/comparar/inversion/">fondos y ETFs</a> · <a href="/co/comparar/cripto/">cripto</a> · <a href="/co/quiz/">quiz</a> · <a href="/guias/cdt-para-principiantes/">guía de CDT</a></p>
+<Faq faqs={ex.slice(0,4)}/>
+</article>
+</Base>

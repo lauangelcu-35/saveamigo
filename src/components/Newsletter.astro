@@ -2,7 +2,7 @@
 import { NEWSLETTER_ENDPOINT, FIELD_MAP } from '../data/site.js';
 const { country='es', source='guide' } = Astro.props;
 const en = ['us','uk','nomads'].includes(country);
-const priv = en ? '/en/privacy/' : country==='mx' ? '/mx/privacidad/' : '/privacidad/';
+const priv = en ? '/en/privacy/' : country==='co' ? '/co/privacidad/' : country==='mx' ? '/mx/privacidad/' : '/privacidad/';
 const T = en ? {h:'Weekly newsletter',p:'Verified rates and one beginner explainer a week. No spam.',b:'Subscribe',c:'I agree to receive the newsletter by email under the',pl:'privacy policy',ok:'Thanks! Check your inbox to confirm.'} : {h:'Newsletter semanal',p:'Tipos verificados y una explicación para principiantes cada semana. Sin spam.',b:'Suscribirme',c:'Acepto recibir la newsletter por email según la',pl:'política de privacidad',ok:'¡Gracias! Revisa tu correo para confirmar.'};
 ---
 <section class="gnews"><div><span class="eyebrow">Newsletter</span><h2>{T.h}</h2><p>{T.p}</p></div>

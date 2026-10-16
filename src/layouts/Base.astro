@@ -4,22 +4,24 @@ import dataMx from '../data/products_mx.json';
 import dataUs from '../data/products_us.json';
 import dataUk from '../data/products_uk.json';
 import dataNm from '../data/products_nomads.json';
+import dataCo from '../data/products_co.json';
 import { CLUSTERS, NAV } from '../data/en.js';
 import { SITE_URL, SITE_NAME } from '../data/site.js';
 const { title = SITE_NAME, description = 'Comparador semanal para principiantes: cuentas remuneradas, depósitos, Letras del Tesoro, fondos indexados y cripto, con la fuente oficial de cada dato.', country = 'es', alt = null, jsonld = [], crumbs = [], og = ('/og/'+({mx:'mx',us:'us',uk:'uk',nomads:'nomads'}[Astro.props.country]||'default')+'.png'), ogType = 'website' } = Astro.props;
 const mx = country === 'mx';
+const co = country === 'co';
 const en = ['us','uk','nomads'].includes(country);
 const N = NAV[country];
 const path = Astro.url.pathname;
 const canonical = new URL(path, SITE_URL).href;
 // alt: ruta equivalente en el otro país (null si no existe)
-const esPath = mx ? alt : path; const mxPath = mx ? path : alt;
-const updated = ({mx:dataMx,us:dataUs,uk:dataUk,nomads:dataNm}[country]||data).updated;
+const esPath = co ? null : mx ? alt : path; const mxPath = co ? null : mx ? path : alt;
+const updated = ({mx:dataMx,co:dataCo,us:dataUs,uk:dataUk,nomads:dataNm}[country]||data).updated;
 const home = N.home;
 const cluster = CLUSTERS.find(c=>Object.values(c).includes(path));
-const lang = {es:'es-ES',mx:'es-MX',us:'en-US',uk:'en-GB',nomads:'en'}[country];
+const lang = {es:'es-ES',mx:'es-MX',co:'es-CO',us:'en-US',uk:'en-GB',nomads:'en'}[country];
 const org = { '@context':'https://schema.org','@type':'Organization','@id':SITE_URL+'/#org',name:SITE_NAME,url:SITE_URL+'/',logo:SITE_URL+'/og/logo.png' };
-const site = { '@context':'https://schema.org','@type':'WebSite','@id':SITE_URL+'/#website',name:SITE_NAME,url:SITE_URL+'/',inLanguage:['es-ES','es-MX','en-US','en-GB'],publisher:{'@id':SITE_URL+'/#org'} };
+const site = { '@context':'https://schema.org','@type':'WebSite','@id':SITE_URL+'/#website',name:SITE_NAME,url:SITE_URL+'/',inLanguage:['es-ES','es-MX','es-CO','en-US','en-GB'],publisher:{'@id':SITE_URL+'/#org'} };
 const bc = crumbs.length ? { '@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[[N.homeName,home],...crumbs].map(([n,u],i)=>({'@type':'ListItem',position:i+1,name:n,item:new URL(u,SITE_URL).href})) } : null;
 const ld = [org, site, bc, ...jsonld].filter(Boolean);
 const fullTitle = `${title} · ${SITE_NAME}`;
@@ -29,6 +31,7 @@ const fullTitle = `${title} · ${SITE_NAME}`;
 <meta name="description" content={description}/>
 <link rel="canonical" href={canonical}/>
 {cluster ? <Fragment>{Object.entries(cluster).map(([h,u])=> <link rel="alternate" hreflang={h} href={new URL(u, SITE_URL).href}/>)}<link rel="alternate" hreflang="x-default" href={new URL(cluster['es-ES']||Object.values(cluster)[0], SITE_URL).href}/></Fragment> : en ? null : <Fragment>
+{co && <link rel="alternate" hreflang="es-CO" href={canonical}/>}
 {esPath && <link rel="alternate" hreflang="es-ES" href={new URL(esPath, SITE_URL).href}/>}
 {mxPath && <link rel="alternate" hreflang="es-MX" href={new URL(mxPath, SITE_URL).href}/>}
 {esPath && mxPath && <link rel="alternate" hreflang="x-default" href={new URL(esPath, SITE_URL).href}/>}
@@ -121,10 +124,10 @@ footer.site .mono{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-
 <a class="sr" href="#main">{en?'Skip to content':'Saltar al contenido'}</a>
 <header class="site"><nav aria-label={en?'Main':'Principal'}><a class="logo" href={home}><i aria-hidden="true">{N.sym}</i>SaveAmigo</a>
 {N.links.map(([t,u])=> <a href={u}>{t}</a>)}<a class="cta" href={N.cta[1]}>{N.cta[0]}</a>
-<details class="csel"><summary class="country" aria-label={en?'Choose country':'Elegir país'}>{N.flag} ▾</summary><div class="cmenu">{[['🇪🇸 España','/','es-ES'],['🇲🇽 México','/mx/','es-MX'],['🇺🇸 United States','/us/','en-US'],['🇬🇧 United Kingdom','/uk/','en-GB'],['🌍 Digital nomads','/nomads/','en']].map(([t,u,h])=> <a href={u} hreflang={h} lang={h}>{t}</a>)}</div></details></nav></header>
+<details class="csel"><summary class="country" aria-label={en?'Choose country':'Elegir país'}>{N.flag} ▾</summary><div class="cmenu">{[['🇪🇸 España','/','es-ES'],['🇲🇽 México','/mx/','es-MX'],['🇨🇴 Colombia','/co/','es-CO'],['🇺🇸 United States','/us/','en-US'],['🇬🇧 United Kingdom','/uk/','en-GB'],['🌍 Digital nomads','/nomads/','en']].map(([t,u,h])=> <a href={u} hreflang={h} lang={h}>{t}</a>)}</div></details></nav></header>
 <main id="main">{crumbs.length > 0 && <nav class="crumbs" aria-label={en?"Breadcrumb":"Migas de pan"}><ol><li><a href={home}>{en?"Home":"Inicio"}</a></li>{crumbs.map(([n,u],i)=> <li>{i===crumbs.length-1 ? <span aria-current="page">{n}</span> : <a href={u}>{n}</a>}</li>)}</ol></nav>}
 {en ? <div class="warn" role="note"><strong>Not financial advice.</strong> General information only. Always check the terms on each provider's official website. Data last updated: <time datetime={updated}>{updated}</time>.</div> : <div class="warn" role="note"><strong>No es asesoramiento financiero.</strong> Información orientativa y general. Comprueba siempre las condiciones en la web oficial de cada entidad. Última actualización de datos: <time datetime={updated}>{updated}</time>.</div>}<slot/></main>
 {en ? <footer class="site"><div class="in"><div class="brand">{N.sym} SaveAmigo</div><p><strong>Disclaimer:</strong> SaveAmigo is not financial, tax or legal advice and is not a regulated firm. Some links are <strong>referral</strong> links (labelled "referral link"): if you sign up we may receive a bonus at no cost to you. This never changes ordering or ratings. Past performance is not a guide to future returns. Figures not confirmed on an official page are marked "pending verification".</p>
-<p><a href="/us/">United States</a> · <a href="/uk/">United Kingdom</a> · <a href="/nomads/">Digital nomads</a> · <a href="/us/quiz/">Quiz US</a> · <a href="/uk/quiz/">Quiz UK</a> · <a href="/nomads/quiz/">Quiz nomads</a> · <a href="/" lang="es">España</a> · <a href="/mx/" lang="es">México</a> · <a href="/en/privacy/">Privacy</a></p><p class="mono">Prototype · Data updated {updated}</p></div></footer> : <footer class="site"><div class="in"><div class="brand">{mx?'$':'€'} SaveAmigo</div><p><strong>Aviso:</strong> SaveAmigo no es asesoramiento financiero ni una entidad regulada. Algunos enlaces pueden ser de afiliado o de <strong>referido</strong> (marcados como "enlace de referido"): si contratas, podríamos recibir una comisión o bono sin coste para ti. Esto no cambia el orden ni la valoración. Rendimientos pasados no garantizan rendimientos futuros.</p>
-<p><a href="/">España</a> · <a href="/mx/">México</a> · <a href="/nomadas/">Nómadas digitales</a> · <a href="/us/" lang="en">USA</a> · <a href="/uk/" lang="en">UK</a> · <a href="/quiz/">Quiz ES</a> · <a href="/mx/quiz/">Quiz MX</a> · <a href="/metodologia/">Metodología y fuentes</a> · <a href={mx?'/mx/privacidad/':'/privacidad/'}>Privacidad</a></p><p class="mono">Prototipo · Datos actualizados {updated}</p></div></footer>}
+<p><a href="/us/">United States</a> · <a href="/uk/">United Kingdom</a> · <a href="/nomads/">Digital nomads</a> · <a href="/us/quiz/">Quiz US</a> · <a href="/uk/quiz/">Quiz UK</a> · <a href="/nomads/quiz/">Quiz nomads</a> · <a href="/" lang="es">España</a> · <a href="/mx/" lang="es">México</a> · <a href="/en/privacy/">Privacy</a></p><p class="mono">Prototype · Data updated {updated}</p></div></footer> : <footer class="site"><div class="in"><div class="brand">{(mx||co)?'$':'€'} SaveAmigo</div><p><strong>Aviso:</strong> SaveAmigo no es asesoramiento financiero ni una entidad regulada. Algunos enlaces pueden ser de afiliado o de <strong>referido</strong> (marcados como "enlace de referido"): si contratas, podríamos recibir una comisión o bono sin coste para ti. Esto no cambia el orden ni la valoración. Rendimientos pasados no garantizan rendimientos futuros.</p>
+<p><a href="/">España</a> · <a href="/mx/">México</a> · <a href="/co/">Colombia</a> · <a href="/nomadas/">Nómadas digitales</a> · <a href="/us/" lang="en">USA</a> · <a href="/uk/" lang="en">UK</a> · <a href="/quiz/">Quiz ES</a> · <a href="/mx/quiz/">Quiz MX</a> · <a href="/co/quiz/">Quiz CO</a> · <a href="/metodologia/">Metodología y fuentes</a> · <a href={co?'/co/privacidad/':mx?'/mx/privacidad/':'/privacidad/'}>Privacidad</a></p><p class="mono">Prototipo · Datos actualizados {updated}</p></div></footer>}
 </body></html>
