@@ -59,7 +59,7 @@ h1{font-size:clamp(2.2rem,5vw,4rem)}h2{font-size:clamp(1.6rem,3vw,2.4rem);margin
 p{color:var(--ink-soft)}a{color:var(--brand)}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--line);padding:6px 12px;border-radius:100px}
 .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--mint-deep)}
-header.site{position:sticky;top:0;z-index:10;background:rgba(241,245,242,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header.site{position:sticky;top:0;z-index:50;background:rgba(241,245,242,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 header.site nav{max-width:1180px;margin:auto;padding:16px 32px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 header.site a{color:var(--ink);text-decoration:none;font-weight:500;font-size:.93rem;padding:8px 14px;border-radius:100px}header.site a:hover{background:var(--white)}
 .logo{font-family:'Space Grotesk';font-weight:700;font-size:1.2rem!important;margin-right:auto;display:flex;align-items:center;gap:10px}
@@ -93,7 +93,6 @@ td small{color:var(--ink-soft)}
  td{border:0;padding:8px 18px;display:grid;grid-template-columns:110px 1fr;gap:10px}
  td:before{content:attr(data-l);font:500 .68rem 'IBM Plex Mono',monospace;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
  th[scope=row]{display:block;font-size:1.05rem!important;border-bottom:1px solid var(--line);padding:10px 18px 12px}}
-@media(max-width:600px){header.site a:not(.logo):not(.cta){font-size:.85rem;padding:6px 9px}}
 footer.site{background:var(--ink);color:#B9C4BF;font-size:.88rem;border-radius:var(--r-lg) var(--r-lg) 0 0}
 footer.site .in{max-width:1180px;margin:auto;padding:48px 32px}footer.site a{color:var(--mint)}footer.site p{color:#B9C4BF}
 footer.site .brand{font-family:'Space Grotesk';color:#fff;font-size:1.4rem;font-weight:700;margin-bottom:12px}
@@ -104,8 +103,19 @@ footer.site .mono{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-
 .ref{font-size:.75rem;border:1px solid var(--mint-deep);background:var(--mint);padding:3px 8px;color:#0B5A38;border-radius:8px;text-decoration:none;white-space:nowrap;display:inline-block}
 .reflabel{display:block;font-size:.68rem;color:var(--ink-soft);margin-top:3px}
 .crumbs{font-size:.82rem;margin:0 0 12px}.crumbs a{color:var(--ink-soft)}.crumbs ol{list-style:none;display:flex;gap:6px;padding:0;margin:0;flex-wrap:wrap}.crumbs li+li:before{content:"›";margin-right:6px;color:var(--ink-soft)}
-.csel{position:relative}.csel summary{list-style:none;cursor:pointer;padding:8px 14px;border-radius:100px}.cmenu{position:absolute;right:0;top:110%;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px;display:flex;flex-direction:column;min-width:190px}
+.csel{position:relative;z-index:30}.csel summary{list-style:none;cursor:pointer;padding:8px 14px;border-radius:100px;min-height:40px;display:inline-flex;align-items:center}.csel summary::-webkit-details-marker{display:none}
+.cmenu{position:absolute;right:0;left:auto;top:calc(100% + 6px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px;display:flex;flex-direction:column;min-width:190px;max-width:calc(100vw - 32px);width:max-content;z-index:40}
+.cmenu a{padding:12px 14px;min-height:44px;display:flex;align-items:center;white-space:nowrap;border-radius:10px;font-size:.93rem}
 .country{margin-left:6px;font-size:.85rem!important;border:1px solid var(--line);background:#fff}
+@media(max-width:600px){
+ header.site nav{padding:12px 16px;gap:6px 4px;align-items:center}
+ header.site a:not(.logo):not(.cta){font-size:.85rem;padding:8px 10px}
+ header.site a.cta{padding:8px 14px}
+ .logo{margin-right:auto}
+ .csel{position:static}
+ .cmenu{left:16px;right:16px;width:auto;min-width:0;max-width:none;top:100%;margin-top:6px}
+ .cmenu a{white-space:normal}
+}
 .sr{position:absolute;left:-9999px}
 </style></head><body>
 <a class="sr" href="#main">{en?'Skip to content':'Saltar al contenido'}</a>
