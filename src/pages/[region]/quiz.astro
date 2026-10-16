@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import QuizEn from '../../components/QuizEn.astro';
+import Faq from '../../components/Faq.astro';
+import { REGIONS, quizFaqs as faqs } from '../../data/en.js';
+import { faqLd } from '../../lib/seo.js';
+import { SITE_URL } from '../../data/site.js';
+export function getStaticPaths(){ return ['us','uk','nomads'].map(region=>({params:{region}})); }
+const { region } = Astro.params; const R = REGIONS[region];
+const quizLd={'@context':'https://schema.org','@type':'Quiz',name:'Save, invest or both?',about:'Basic personal finance: saving and investing',educationalUse:'self-assessment',inLanguage:R.locale,url:SITE_URL+`/${region}/quiz/`,isAccessibleForFree:true};
+---
+<Base title={`Quiz: save, invest or both? (${R.short})`} description={`Free 7-question quiz to see whether to save first, invest or do both (${R.name}). General information, not financial advice.`} country={region} crumbs={[["Quiz",`/${region}/quiz/`]]} jsonld={[quizLd, faqLd(faqs)]}>
+<span class="eyebrow">Quiz · 7 questions · 2 min</span>
+<h1>Save, invest or both?</h1>
+<p class="answer">If you have expensive debt or less than 3 months of expenses saved, the usual order is to <strong>save first</strong>. With the cushion in place, money you won't need for 5+ years can be invested. Answer 7 questions to see your case.</p>
+<QuizEn country={region}/>
+<Faq faqs={faqs} title="Frequently asked questions"/>
+</Base>

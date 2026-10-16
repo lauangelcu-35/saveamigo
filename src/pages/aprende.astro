@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { faqLd } from '../lib/seo.js';
+const ex=[['¿Qué es la TAE?','La Tasa Anual Equivalente incluye intereses y frecuencia de pago, para comparar productos de forma homogénea. El TIN es el tipo "bruto" sin ese efecto.'],
+['¿Qué es el FGD?','El Fondo de Garantía de Depósitos protege hasta 100.000 € por titular y entidad si un banco español quiebra. Bancos de otros países de la UE tienen garantías equivalentes en su país.'],
+['Cuenta remunerada vs depósito','La cuenta te deja sacar el dinero cuando quieras; el depósito suele pagar algo más a cambio de inmovilizarlo un plazo fijo.'],
+['¿Cómo funcionan las Letras del Tesoro?','Compras una Letra por debajo de 1.000 € y al vencimiento recibes 1.000 €. La diferencia es tu rentabilidad. Se emiten a 3, 6, 9 y 12 meses mediante subasta.'],
+['Fondos indexados','Replican un índice (p.ej. bolsa mundial) con comisiones bajas. Pueden bajar mucho a corto plazo; tienen sentido a 5+ años.'],
+['Cripto y MiCA','MiCA es el reglamento europeo que obliga a los proveedores de criptoactivos a tener licencia. Una licencia no protege contra caídas de precio.'],
+['Promociones','Muchas rentabilidades altas son temporales o para nuevos clientes. Fíjate en la fecha de fin y en lo que pasa después.']];
+---
+<Base title="Aprende: TAE, FGD, Letras, fondos indexados y MiCA explicados" description="Conceptos básicos de ahorro e inversión en España explicados sin jerga: TAE vs TIN, FGD, Letras del Tesoro, fondos indexados, MiCA y promociones." crumbs={[['Aprende','/aprende/']]} alt="/mx/aprende/" jsonld={[faqLd(ex)]}><h1>Aprende lo básico</h1><p class="answer">Lo esencial: compara por TAE, comprueba la garantía (FGD hasta 100.000 €), separa el dinero de corto plazo (cuentas, depósitos, Letras) del de largo plazo (fondos indexados) y trata la cripto como riesgo alto.</p><div class="cards">{ex.map(([t,b])=> <section class="card"><h2 style="font-size:1.2rem;margin-top:0">{t}</h2><p>{b}</p></section>)}</div><p>Siguiente paso: <a href="/quiz/">haz el quiz</a> o <a href="/comparar/cuentas/">compara cuentas remuneradas</a>.</p></Base>

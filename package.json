@@ -1,0 +1,1 @@
+{"name":"ahorrarinvertir","type":"module","private":true,"scripts":{"dev":"astro dev","build":"astro build","preview":"astro preview","refresh":"node scripts/refresh.mjs"},"dependencies":{"@fontsource/ibm-plex-mono":"^5.3.0","@fontsource/inter":"^5.3.0","@fontsource/space-grotesk":"^5.3.0","astro":"^4.16.0"}}

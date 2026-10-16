@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import { REGIONS } from '../../data/en.js';
+import { faqLd } from '../../lib/seo.js';
+import us from '../../data/products_us.json'; import uk from '../../data/products_uk.json'; import nomads from '../../data/products_nomads.json';
+export function getStaticPaths(){ return ['us','uk','nomads'].map(region=>({params:{region}})); }
+const { region } = Astro.params; const R = REGIONS[region]; const data = {us,uk,nomads}[region];
+const v = data.products.filter(p=>p.verified).length;
+const top = data.products.filter(p=>p.verified).slice(0,6);
+const faqs = Object.values(R.cats).flatMap(c=>c.faqs.slice(0,1));
+const rl = {bajo:'low',medio:'medium',alto:'high'};
+---
+<Base country={region} title={R.title} description={R.desc} jsonld={[faqLd(faqs)]}>
+<section class="hero"><div><span class="eyebrow">Comparison · {R.name}</span><h1>{R.h1}</h1>
+<p class="lead answer">{R.answer}</p>
+<p class="actions"><a class="btn" href={`/${region}/quiz/`}>Save, invest or both? Take the quiz →</a> <a class="btn ghost" href={`/${region}/compare/${Object.keys(R.cats)[0]}/`}>See comparisons</a></p>
+{region==='nomads' && <p lang="es"><a href="/nomadas/">Resumen en español →</a></p>}</div>
+<div class="hero-panel"><div class="eyebrow">Protection</div>{R.panel.map(([c,t,d])=> <p><span class={'risk '+c}>{t}</span> {d}</p>)}<small>{v} of {data.products.length} data points verified on official sources · <time datetime={data.updated}>{data.updated}</time></small></div></section>
+<h2>Verified this week</h2>
+<div class="cards">{top.map(p=> <div class="card prod"><span class={'risk '+p.risk}>{rl[p.risk]} risk</span><h3>{p.name}</h3><p class="rate">{p.rate}</p><small>{p.guarantee}<br/>✅ verified {p.last_verified} · <a href={p.source} rel="nofollow noopener">source<span class="sr"> for {p.name}</span></a></small></div>)}</div>
+<h2>Compare by product type</h2>
+<div class="cards">{Object.entries(R.cats).map(([k,c])=> <a class="card" style="text-decoration:none;color:inherit" href={`/${region}/compare/${k}/`}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div>
+<p>Before choosing, read <a href={`/${region}/learn/`}>the basics explained</a>.</p>
+<Faq faqs={faqs} title="Frequently asked questions"/>
+</Base>
+<style>
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;padding:40px 0 20px}.lead{font-size:1.1rem;max-width:640px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero-panel{background:linear-gradient(150deg,#fff 0%,#E6F7EE 100%);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow)}.hero-panel p{display:flex;gap:12px;align-items:center;margin:14px 0;color:var(--ink)}
+.prod{display:flex;flex-direction:column;gap:6px}.prod .rate{font-family:'Space Grotesk';font-size:1.25rem;font-weight:700;color:var(--brand);margin:4px 0}.prod small{color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+</style>

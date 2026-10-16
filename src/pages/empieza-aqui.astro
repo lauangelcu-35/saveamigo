@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Empieza aquí: orientación rápida en 3 preguntas" description="Tres preguntas rápidas para saber qué tipo de producto de ahorro mirar primero en España. Para un resultado más completo, haz el quiz." crumbs={[['Empieza aquí','/empieza-aqui/']]}>
+<span class="eyebrow">3 preguntas</span><h1>Empieza aquí</h1><p class="lead">Responde 3 preguntas y te orientamos sobre qué tipo de producto mirar primero. No es una recomendación personalizada. ¿Quieres algo más completo? <a href="/quiz/">Haz el quiz de 7 preguntas</a>.</p>
+<form id="q" class="card">
+<p><strong>1. ¿Tienes un fondo de emergencia (3-6 meses de gastos)?</strong><br/><label><input type="radio" name="e" value="no" required/> No</label> <label><input type="radio" name="e" value="si"/> Sí</label></p>
+<p><strong>2. ¿Cuándo podrías necesitar este dinero?</strong><br/><label><input type="radio" name="t" value="c" required/> En menos de 1 año</label> <label><input type="radio" name="t" value="m"/> 1-5 años</label> <label><input type="radio" name="t" value="l"/> Más de 5 años</label></p>
+<p><strong>3. Si tu inversión bajara un 30% en un año, ¿qué harías?</strong><br/><label><input type="radio" name="r" value="b" required/> Vendería asustado</label> <label><input type="radio" name="r" value="m"/> Me preocuparía pero esperaría</label> <label><input type="radio" name="r" value="a"/> Lo vería como oportunidad</label></p>
+<button class="btn">Ver orientación</button></form>
+<div id="res" class="card" style="margin-top:16px;display:none"></div>
+<script is:inline>
+document.getElementById('q').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);const E=f.get('e'),T=f.get('t'),R=f.get('r');let h;
+if(E==='no')h='Primero, el <b>fondo de emergencia</b> en una <a href="/comparar/cuentas">cuenta remunerada</a> con garantía FGD.';
+else if(T==='c')h='Para menos de 1 año: <a href="/comparar/cuentas">cuentas remuneradas</a>, <a href="/comparar/depositos">depósitos</a> o <a href="/comparar/letras">Letras del Tesoro</a> (riesgo bajo).';
+else if(T==='m'||R==='b')h='Plazo medio o poca tolerancia a caídas: combina <a href="/comparar/depositos">depósitos</a>/<a href="/comparar/letras">Letras</a> y, como mucho, una parte pequeña en <a href="/comparar/fondos">fondos indexados</a> conservadores.';
+else h='Largo plazo y tolerancia a caídas: mira <a href="/comparar/fondos">fondos indexados / roboadvisors</a> (riesgo medio). La <a href="/comparar/cripto">cripto</a> solo con una parte pequeña que puedas perder.';
+const r=document.getElementById('res');r.style.display='block';r.innerHTML='<h3>Tu punto de partida</h3><p>'+h+'</p><p><small>Orientación general, no es asesoramiento financiero.</small></p>';});
+</script></Base>
+<style>#q{max-width:760px;padding:32px}#q p{color:var(--ink)}#q label{display:inline-flex;gap:8px;align-items:center;margin:8px 8px 0 0;padding:10px 16px;border:1px solid var(--line);border-radius:100px;cursor:pointer;background:#F7FAF8}#q label:has(input:checked){background:var(--mint);border-color:var(--mint-deep)}#res{max-width:760px;background:linear-gradient(150deg,#fff,#E6F7EE)}.lead{font-size:1.1rem;max-width:640px}</style>

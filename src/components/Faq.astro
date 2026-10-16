@@ -1,0 +1,5 @@
+---
+const { faqs, title = 'Preguntas frecuentes' } = Astro.props;
+---
+<section class="faq" aria-labelledby="faq-h"><h2 id="faq-h">{title}</h2>
+{faqs.map(([q,a]) => <details><summary><h3>{q}</h3></summary><p>{a}</p></details>)}</section>

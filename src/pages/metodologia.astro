@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Metodología y fuentes: cómo verificamos cada dato" description="Cómo clasificamos el riesgo, verificamos tipos en fuentes oficiales (tesoro.es, ESMA, webs de entidades) y tratamos los enlaces de afiliado y referido." crumbs={[['Metodología','/metodologia/']]}><h1>Metodología</h1><p class="answer">Cada dato procede de la web oficial de la entidad o del organismo público; si no lo podemos confirmar, se muestra "pendiente de verificar" y nunca se estima.</p>
+<h2>Nivel de riesgo</h2><ul>
+<li><span class="risk bajo">bajo</span>: capital cubierto por garantía de depósitos (FGD o equivalente UE hasta 100.000 €) o deuda pública española a corto plazo.</li>
+<li><span class="risk medio">medio</span>: sin garantía de capital pero diversificado (fondos indexados globales); puede caer un 30-50% temporalmente.</li>
+<li><span class="risk alto">alto</span>: sin garantía y alta volatilidad (criptoactivos).</li></ul>
+<h2>Verificación</h2><p>Cada dato se comprueba en la página oficial de la entidad (o tesoro.es / registro ESMA). Si no se puede confirmar, se muestra "pendiente de verificar"; nunca se estima. Un script semanal descarga las páginas accesibles y avisa de cambios para revisión humana.</p>
+<h2>Afiliación y referidos</h2><p>Los enlaces marcados como afiliado son marcadores de posición. Los enlaces de referido (configurados en <code>src/data/referrals.json</code>) se señalan como "enlace de referido" y llevan rel="sponsored nofollow". Ni la afiliación ni los referidos influyen en el riesgo ni en el orden.</p><h2>Fuentes principales</h2><ul><li><a href="https://www.tesoro.es/">Tesoro Público</a> (Letras)</li><li><a href="https://www.esma.europa.eu/">ESMA</a> (registro MiCA)</li><li><a href="https://www.fgd.es/">FGD</a></li><li>México: <a href="https://www.banxico.org.mx/">Banxico</a> (CETES), <a href="https://www.ipab.org.mx/">IPAB</a>, <a href="https://www.gob.mx/cnbv">CNBV</a></li></ul><p class="meta">Última revisión de la metodología: 2026-10-16</p></Base>

@@ -1,0 +1,120 @@
+---
+import data from '../data/products.json';
+import dataMx from '../data/products_mx.json';
+import dataUs from '../data/products_us.json';
+import dataUk from '../data/products_uk.json';
+import dataNm from '../data/products_nomads.json';
+import { CLUSTERS, NAV } from '../data/en.js';
+import { SITE_URL, SITE_NAME } from '../data/site.js';
+const { title = SITE_NAME, description = 'Comparador semanal para principiantes: cuentas remuneradas, depósitos, Letras del Tesoro, fondos indexados y cripto, con la fuente oficial de cada dato.', country = 'es', alt = null, jsonld = [], crumbs = [], og = ('/og/'+({mx:'mx',us:'us',uk:'uk',nomads:'nomads'}[Astro.props.country]||'default')+'.png'), ogType = 'website' } = Astro.props;
+const mx = country === 'mx';
+const en = ['us','uk','nomads'].includes(country);
+const N = NAV[country];
+const path = Astro.url.pathname;
+const canonical = new URL(path, SITE_URL).href;
+// alt: ruta equivalente en el otro país (null si no existe)
+const esPath = mx ? alt : path; const mxPath = mx ? path : alt;
+const updated = ({mx:dataMx,us:dataUs,uk:dataUk,nomads:dataNm}[country]||data).updated;
+const home = N.home;
+const cluster = CLUSTERS.find(c=>Object.values(c).includes(path));
+const lang = {es:'es-ES',mx:'es-MX',us:'en-US',uk:'en-GB',nomads:'en'}[country];
+const org = { '@context':'https://schema.org','@type':'Organization','@id':SITE_URL+'/#org',name:SITE_NAME,url:SITE_URL+'/',logo:SITE_URL+'/og/logo.png' };
+const site = { '@context':'https://schema.org','@type':'WebSite','@id':SITE_URL+'/#website',name:SITE_NAME,url:SITE_URL+'/',inLanguage:['es-ES','es-MX','en-US','en-GB'],publisher:{'@id':SITE_URL+'/#org'} };
+const bc = crumbs.length ? { '@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[[N.homeName,home],...crumbs].map(([n,u],i)=>({'@type':'ListItem',position:i+1,name:n,item:new URL(u,SITE_URL).href})) } : null;
+const ld = [org, site, bc, ...jsonld].filter(Boolean);
+const fullTitle = `${title} · ${SITE_NAME}`;
+---
+<html lang={lang}><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>{fullTitle}</title>
+<meta name="description" content={description}/>
+<link rel="canonical" href={canonical}/>
+{cluster ? <Fragment>{Object.entries(cluster).map(([h,u])=> <link rel="alternate" hreflang={h} href={new URL(u, SITE_URL).href}/>)}<link rel="alternate" hreflang="x-default" href={new URL(cluster['es-ES']||Object.values(cluster)[0], SITE_URL).href}/></Fragment> : en ? null : <Fragment>
+{esPath && <link rel="alternate" hreflang="es-ES" href={new URL(esPath, SITE_URL).href}/>}
+{mxPath && <link rel="alternate" hreflang="es-MX" href={new URL(mxPath, SITE_URL).href}/>}
+{esPath && mxPath && <link rel="alternate" hreflang="x-default" href={new URL(esPath, SITE_URL).href}/>}
+</Fragment>}
+<meta property="og:type" content={ogType}/><meta property="og:title" content={fullTitle}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:site_name" content={SITE_NAME}/><meta property="og:locale" content={lang.replace('-','_')}/><meta property="og:image" content={new URL(og, SITE_URL).href}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={fullTitle}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={new URL(og, SITE_URL).href}/>
+<link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="/fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<meta name="theme-color" content="#0F5F4A"/>
+{ld.map(o => <script type="application/ld+json" set:html={JSON.stringify(o)}/>)}
+<style is:global>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/space-grotesk-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/space-grotesk-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/space-grotesk-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+
+:root{--bg:#F1F5F2;--ink:#0F1A16;--ink-soft:#56625C;--white:#fff;--brand:#0F5F4A;--mint:#BFF2D6;--mint-deep:#2FA77A;--sand:#FFE9B8;--sand-ink:#7A5200;--coral:#FFD3C7;--coral-ink:#A3301A;--sky:#D6E8F5;--line:rgba(15,26,22,.09);--r-lg:28px;--r-md:18px;--r-sm:10px;--shadow:0 1px 2px rgba(15,26,22,.04),0 8px 24px rgba(15,26,22,.06)}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,sans-serif;margin:0;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.1;margin:.2em 0 .4em}
+h1{font-size:clamp(2.2rem,5vw,4rem)}h2{font-size:clamp(1.6rem,3vw,2.4rem);margin-top:64px}h3{font-size:1.2rem}
+p{color:var(--ink-soft)}a{color:var(--brand)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--line);padding:6px 12px;border-radius:100px}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--mint-deep)}
+header.site{position:sticky;top:0;z-index:10;background:rgba(241,245,242,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header.site nav{max-width:1180px;margin:auto;padding:16px 32px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+header.site a{color:var(--ink);text-decoration:none;font-weight:500;font-size:.93rem;padding:8px 14px;border-radius:100px}header.site a:hover{background:var(--white)}
+.logo{font-family:'Space Grotesk';font-weight:700;font-size:1.2rem!important;margin-right:auto;display:flex;align-items:center;gap:10px}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--brand);color:var(--mint);display:grid;place-items:center;font-style:normal;font-size:.95rem}
+header.site a.cta{background:var(--ink);color:#fff}header.site a.cta:hover{background:var(--brand)}
+main{max-width:1180px;margin:auto;padding:28px 32px 80px}
+.warn{background:var(--sand);border:1px solid rgba(122,82,0,.15);color:var(--sand-ink);padding:12px 18px;margin:8px 0 24px;border-radius:var(--r-md);font-size:.9rem}
+.warn.danger{background:var(--coral);color:var(--coral-ink);border-color:rgba(163,48,26,.2)}
+.risk{display:inline-flex;width:max-content;align-items:center;gap:6px;padding:4px 11px;border-radius:100px;font-weight:600;font-size:.78rem;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.04em}
+.risk:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.bajo{background:var(--mint);color:#0B5A38}.medio{background:var(--sand);color:var(--sand-ink)}.alto{background:var(--coral);color:var(--coral-ink)}
+.pend{color:var(--coral-ink);font-weight:600}
+.aff{font-size:.75rem;border:1px dashed #9aa5a0;padding:3px 8px;color:#56625C;border-radius:8px;text-decoration:none;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{background:var(--white);padding:24px;border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+a.card:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(15,26,22,.1)}
+.btn{background:var(--ink);color:#fff;border:0;padding:13px 24px;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;gap:8px;align-items:center;font:600 .95rem Inter,sans-serif;transition:background .2s}
+.btn:hover{background:var(--brand)}.btn.ghost{background:var(--white);color:var(--ink);border:1px solid var(--line)}
+input[type=email]{font:inherit;padding:13px 18px;border-radius:100px;border:1px solid var(--line);background:#fff;min-width:0}
+/* tables */
+.tablewrap{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:14px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#F7FAF8;font:500 .7rem 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}
+tbody tr:hover{background:#FAFCFB}tbody tr:last-child td{border-bottom:0}
+td small{color:var(--ink-soft)}
+@media(max-width:860px){main{padding:20px 18px 60px}header.site nav{padding:12px 18px}
+ .tablewrap{background:none;border:0;box-shadow:none}
+ table,tbody,tr,td{display:block}thead{display:none}
+ tr{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:14px;padding:6px 0;box-shadow:var(--shadow)}
+ td{border:0;padding:8px 18px;display:grid;grid-template-columns:110px 1fr;gap:10px}
+ td:before{content:attr(data-l);font:500 .68rem 'IBM Plex Mono',monospace;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
+ th[scope=row]{display:block;font-size:1.05rem!important;border-bottom:1px solid var(--line);padding:10px 18px 12px}}
+@media(max-width:600px){header.site a:not(.logo):not(.cta){font-size:.85rem;padding:6px 9px}}
+footer.site{background:var(--ink);color:#B9C4BF;font-size:.88rem;border-radius:var(--r-lg) var(--r-lg) 0 0}
+footer.site .in{max-width:1180px;margin:auto;padding:48px 32px}footer.site a{color:var(--mint)}footer.site p{color:#B9C4BF}
+footer.site .brand{font-family:'Space Grotesk';color:#fff;font-size:1.4rem;font-weight:700;margin-bottom:12px}
+footer.site .mono{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#7F8B86;border-top:1px solid rgba(255,255,255,.1);padding-top:18px;margin-top:24px}
+.answer{background:#fff;border-left:4px solid var(--mint-deep);border-radius:var(--r-sm);padding:14px 18px;color:var(--ink);font-size:1.05rem;max-width:820px;box-shadow:var(--shadow)}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:4px 20px;margin:10px 0}.faq summary{cursor:pointer;list-style:none}.faq summary h3{display:inline;font-size:1.05rem}.faq details p{margin-top:4px}
+.meta{font:500 .78rem 'IBM Plex Mono',monospace;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.ref{font-size:.75rem;border:1px solid var(--mint-deep);background:var(--mint);padding:3px 8px;color:#0B5A38;border-radius:8px;text-decoration:none;white-space:nowrap;display:inline-block}
+.reflabel{display:block;font-size:.68rem;color:var(--ink-soft);margin-top:3px}
+.crumbs{font-size:.82rem;margin:0 0 12px}.crumbs a{color:var(--ink-soft)}.crumbs ol{list-style:none;display:flex;gap:6px;padding:0;margin:0;flex-wrap:wrap}.crumbs li+li:before{content:"›";margin-right:6px;color:var(--ink-soft)}
+.csel{position:relative}.csel summary{list-style:none;cursor:pointer;padding:8px 14px;border-radius:100px}.cmenu{position:absolute;right:0;top:110%;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px;display:flex;flex-direction:column;min-width:190px}
+.country{margin-left:6px;font-size:.85rem!important;border:1px solid var(--line);background:#fff}
+.sr{position:absolute;left:-9999px}
+</style></head><body>
+<a class="sr" href="#main">{en?'Skip to content':'Saltar al contenido'}</a>
+<header class="site"><nav aria-label={en?'Main':'Principal'}><a class="logo" href={home}><i aria-hidden="true">{N.sym}</i>SaveAmigo</a>
+{N.links.map(([t,u])=> <a href={u}>{t}</a>)}<a class="cta" href={N.cta[1]}>{N.cta[0]}</a>
+<details class="csel"><summary class="country" aria-label={en?'Choose country':'Elegir país'}>{N.flag} ▾</summary><div class="cmenu">{[['🇪🇸 España','/','es-ES'],['🇲🇽 México','/mx/','es-MX'],['🇺🇸 United States','/us/','en-US'],['🇬🇧 United Kingdom','/uk/','en-GB'],['🌍 Digital nomads','/nomads/','en']].map(([t,u,h])=> <a href={u} hreflang={h} lang={h}>{t}</a>)}</div></details></nav></header>
+<main id="main">{crumbs.length > 0 && <nav class="crumbs" aria-label={en?"Breadcrumb":"Migas de pan"}><ol><li><a href={home}>{en?"Home":"Inicio"}</a></li>{crumbs.map(([n,u],i)=> <li>{i===crumbs.length-1 ? <span aria-current="page">{n}</span> : <a href={u}>{n}</a>}</li>)}</ol></nav>}
+{en ? <div class="warn" role="note"><strong>Not financial advice.</strong> General information only. Always check the terms on each provider's official website. Data last updated: <time datetime={updated}>{updated}</time>.</div> : <div class="warn" role="note"><strong>No es asesoramiento financiero.</strong> Información orientativa y general. Comprueba siempre las condiciones en la web oficial de cada entidad. Última actualización de datos: <time datetime={updated}>{updated}</time>.</div>}<slot/></main>
+{en ? <footer class="site"><div class="in"><div class="brand">{N.sym} SaveAmigo</div><p><strong>Disclaimer:</strong> SaveAmigo is not financial, tax or legal advice and is not a regulated firm. Some links are <strong>referral</strong> links (labelled "referral link"): if you sign up we may receive a bonus at no cost to you. This never changes ordering or ratings. Past performance is not a guide to future returns. Figures not confirmed on an official page are marked "pending verification".</p>
+<p><a href="/us/">United States</a> · <a href="/uk/">United Kingdom</a> · <a href="/nomads/">Digital nomads</a> · <a href="/us/quiz/">Quiz US</a> · <a href="/uk/quiz/">Quiz UK</a> · <a href="/nomads/quiz/">Quiz nomads</a> · <a href="/" lang="es">España</a> · <a href="/mx/" lang="es">México</a> · <a href="/en/privacy/">Privacy</a></p><p class="mono">Prototype · Data updated {updated}</p></div></footer> : <footer class="site"><div class="in"><div class="brand">{mx?'$':'€'} SaveAmigo</div><p><strong>Aviso:</strong> SaveAmigo no es asesoramiento financiero ni una entidad regulada. Algunos enlaces pueden ser de afiliado o de <strong>referido</strong> (marcados como "enlace de referido"): si contratas, podríamos recibir una comisión o bono sin coste para ti. Esto no cambia el orden ni la valoración. Rendimientos pasados no garantizan rendimientos futuros.</p>
+<p><a href="/">España</a> · <a href="/mx/">México</a> · <a href="/nomadas/">Nómadas digitales</a> · <a href="/us/" lang="en">USA</a> · <a href="/uk/" lang="en">UK</a> · <a href="/quiz/">Quiz ES</a> · <a href="/mx/quiz/">Quiz MX</a> · <a href="/metodologia/">Metodología y fuentes</a> · <a href={mx?'/mx/privacidad/':'/privacidad/'}>Privacidad</a></p><p class="mono">Prototipo · Datos actualizados {updated}</p></div></footer>}
+</body></html>

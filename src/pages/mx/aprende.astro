@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import { faqLd, articleLd } from '../../lib/seo.js';
+import { SITE_URL } from '../../data/site.js';
+const D='2026-10-16';
+const ex=[['¿Qué es el IPAB?','El Instituto para la Protección al Ahorro Bancario garantiza los depósitos en bancos (instituciones de banca múltiple) hasta 400,000 UDIs por persona y por banco. Fuente: ipab.org.mx.'],
+['¿Qué es una SOFIPO y qué es PROSOFIPO?','Las Sociedades Financieras Populares son entidades de ahorro y crédito supervisadas por la CNBV. Si están autorizadas, sus ahorradores tienen el seguro del Fondo de Protección (PROSOFIPO) hasta 25,000 UDIs por persona y entidad. Rinden más que un banco, pero con menos protección.'],
+['Sin protección: fintechs, activos virtuales y cripto','Las plataformas de activos virtuales y stablecoins (p. ej. ARQ, antes DolarApp) o los exchanges de cripto no tienen IPAB ni PROSOFIPO. Si la empresa quiebra o el activo cae, puedes perder dinero.'],
+['¿Qué hace la CNBV?','La Comisión Nacional Bancaria y de Valores autoriza y supervisa bancos, SOFIPOs, casas de bolsa y fondos. Antes de abrir una cuenta, comprueba en el padrón oficial de la CNBV o en el SIPRES de CONDUSEF que la entidad está autorizada.'],
+['GAT nominal vs GAT real','La Ganancia Anual Total nominal es el rendimiento antes de inflación; la GAT real descuenta la inflación estimada. Compara siempre con la misma métrica y revisa los "hasta" y topes.'],
+['¿Qué es una UDI?','La Unidad de Inversión es una unidad que se ajusta con la inflación; su valor en pesos lo publica Banxico a diario. Por eso los límites de protección cambian ligeramente en pesos.']];
+const steps=[['Entra en cetesdirecto.com','Regístrate con tu CURP, RFC, INE y una cuenta bancaria (CLABE) a tu nombre.'],['Transfiere dinero','Envía un SPEI desde tu banco a la CLABE de cetesdirecto.'],['Elige instrumento y plazo','CETES a 28, 91, 182 o 364 días (u otros valores como BONDDIA).'],['Confirma y lleva el control','Al vencimiento puedes reinvertir automáticamente o retirar a tu cuenta.']];
+const how={'@context':'https://schema.org','@type':'HowTo',name:'Cómo invertir en CETES con cetesdirecto',inLanguage:'es-MX',step:steps.map(([n,t],i)=>({'@type':'HowToStep',position:i+1,name:n,text:t}))};
+---
+<Base country="mx" alt="/aprende/" title="Aprende (México): IPAB, PROSOFIPO, CNBV, GAT y CETES explicados" description="Qué protege el IPAB (400,000 UDIs), qué es una SOFIPO y PROSOFIPO, qué regula la CNBV, GAT nominal vs real y cómo invertir en CETES paso a paso." crumbs={[['Aprende','/mx/aprende/']]} jsonld={[articleLd('IPAB, PROSOFIPO y CNBV explicados','Protección del ahorro en México para principiantes','/mx/aprende/',D), how, faqLd(ex)]}>
+<article>
+<h1>Protección del ahorro en México, explicada</h1>
+<p class="answer">En México, un banco está protegido por el IPAB hasta 400,000 UDIs por persona y banco; una SOFIPO autorizada, por PROSOFIPO hasta 25,000 UDIs; y las cripto, stablecoins o apps no reguladas no tienen protección. Los CETES son deuda del Gobierno Federal.</p>
+<p class="meta">Actualizado <time datetime={D}>{D}</time> · Fuentes: <a href="https://www.ipab.org.mx/">IPAB</a>, <a href="https://www.gob.mx/cnbv">CNBV</a>, <a href="https://www.banxico.org.mx/">Banxico</a>, <a href="https://www.cetesdirecto.com/">cetesdirecto</a></p>
+<div class="cards">{ex.map(([t,b])=> <section class="card"><h2 style="font-size:1.2rem;margin-top:0">{t}</h2><p>{b}</p></section>)}</div>
+<h2>Cómo invertir en CETES paso a paso</h2>
+<ol class="steps">{steps.map(([n,t])=> <li><strong>{n}.</strong> {t}</li>)}</ol>
+<p>Compara: <a href="/mx/comparar/cuentas/">cuentas y apps</a> · <a href="/mx/comparar/cetes/">CETES</a> · <a href="/mx/comparar/inversion/">fondos</a> · <a href="/mx/comparar/cripto/">cripto</a> · <a href="/mx/quiz/">quiz</a></p>
+<Faq faqs={ex.slice(0,4)}/>
+</article>
+</Base>
+<style>.steps li{margin:10px 0;color:var(--ink)}</style>

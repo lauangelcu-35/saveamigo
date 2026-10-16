@@ -1,0 +1,19 @@
+---
+import referrals from '../data/referrals.json';
+const { items } = Astro.props;
+const P = 'pending verification';
+---
+<div class="tablewrap"><table><caption class="sr">Product comparison</caption><thead><tr><th scope="col">Product</th><th scope="col">Rate / return</th><th scope="col">Cost</th><th scope="col">Conditions</th><th scope="col">Promo end</th><th scope="col">Protection</th><th scope="col">Risk</th><th scope="col">Verified</th><th scope="col">Link</th></tr></thead><tbody>
+{items.map(p => { const ref = referrals[p.id]?.url; return <tr>
+<th scope="row" data-l="Product" style="font:inherit;text-transform:none;letter-spacing:0;background:none;color:var(--ink)"><strong>{p.name}</strong></th>
+<td data-l="Rate" class={p.rate.includes(P)?'pend':''}>{p.rate}</td>
+<td data-l="Cost" class={p.cost.includes(P)?'pend':''}>{p.cost}</td>
+<td data-l="Conditions">{p.conditions}</td>
+<td data-l="Promo end" class={p.promo_end.includes(P)?'pend':''}>{p.promo_end}</td>
+<td data-l="Protection" class={p.guarantee.includes(P)?'pend':''}>{p.guarantee}</td>
+<td data-l="Risk"><span class={'risk '+p.risk} title={p.risk_reason}>{({bajo:'low',medio:'medium',alto:'high'})[p.risk]}</span><br/><small>{p.risk_reason}</small></td>
+<td data-l="Verified">{p.verified ? <span>✅ <time datetime={p.last_verified}>{p.last_verified}</time></span> : <span class="pend">⏳ {P}</span>}<br/><a href={p.source} rel="nofollow noopener" target="_blank">official source<span class="sr"> for {p.name}</span></a></td>
+<td data-l="Link">{ref ? <Fragment><a class="ref" href={ref} rel="sponsored nofollow noopener" target="_blank">Open {referrals[p.id].label} →</a><span class="reflabel">referral link: we may receive a bonus if you sign up</span></Fragment>
+  : (p.affiliate_url && <a class="aff" href={p.affiliate_url} rel="sponsored nofollow">[affiliate link · PLACEHOLDER]</a>)}</td>
+</tr>; })}
+</tbody></table></div>

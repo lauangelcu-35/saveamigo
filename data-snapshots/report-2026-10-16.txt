@@ -1,0 +1,6 @@
+nuevo  openbank (200) 3,25% TAE
+nuevo  ing (200) 0,30 % TAE | 0,87 % TAE | 1,00 % TAE
+nuevo  myinvestor (200) 3,49 % TAE | 3,57 % TAE
+nuevo  bunq (200) hasta un 3,11% | hasta un 3,51% | hasta un 2,11%
+❌ ERROR tesoro: fetch failed (marcar como pendiente de verificar si persiste)
+nuevo  esma_casps (200) 438 CASPs

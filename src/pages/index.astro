@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../data/products.json';
+import { categories } from '../data/categories.js';
+import Faq from '../components/Faq.astro';
+import { faqLd } from '../lib/seo.js';
+const faqs=[['¿Dónde pongo mis ahorros si soy principiante?','Primero, un fondo de emergencia de 3–6 meses de gastos en una cuenta remunerada con garantía FGD. Después, según tu plazo, depósitos o Letras del Tesoro (corto plazo) y fondos indexados (5+ años).'],['¿Es mejor ahorrar o invertir?','Depende de tu fondo de emergencia, deudas, plazo y tolerancia a las caídas. Nuestro quiz gratuito te orienta en 2 minutos.'],['¿Cada cuánto se actualizan los datos?','Semanalmente; cada dato enlaza a su fuente oficial y muestra la fecha de verificación.']];
+const rated = data.products.filter(p=>p.category!=='cripto');
+const top = data.products.filter(p=>p.verified && ['cuentas','depositos','letras'].includes(p.category));
+---
+<Base title="Dónde poner tu dinero en España: comparador semanal para principiantes" description="Compara cuentas remuneradas, depósitos, Letras del Tesoro, fondos indexados y cripto en España. Datos con fuente oficial, actualizados cada semana. No es asesoramiento." alt="/mx/" jsonld={[faqLd(faqs)]}>
+<section class="hero"><div><span class="eyebrow">Comparador semanal · España</span><h1>¿Dónde pongo mi dinero? Comparador semanal para principiantes</h1>
+<p class="lead answer">Respuesta corta: guarda primero un fondo de emergencia en una cuenta remunerada con FGD; para plazos cortos mira depósitos y Letras; para 5+ años, fondos indexados.</p><p class="lead">Cuentas remuneradas, depósitos, Letras del Tesoro, fondos indexados y brokers — explicados sin jerga y con la fuente oficial de cada dato. Cripto, solo como sección de riesgo alto.</p>
+<p class="actions"><a class="btn" href="/quiz/">¿Ahorrar, invertir o los dos? Haz el quiz →</a> <a class="btn ghost" href="/comparar/cuentas/">Ver comparativas</a></p></div><div class="hero-panel"><div class="eyebrow">Escala de riesgo</div><p><span class="risk bajo">bajo</span> Cuentas, depósitos, Letras</p><p><span class="risk medio">medio</span> Fondos indexados</p><p><span class="risk alto">alto</span> Cripto</p><small>Cada dato enlaza a su fuente oficial.</small></div></section>
+<h2>Datos verificados esta semana</h2>
+<div class="cards">{top.map(p=> <div class="card prod"><span class={'risk '+p.risk}>riesgo {p.risk}</span><h3>{p.name}</h3><p class="rate">{p.rate}</p><small>{p.guarantee}<br/>✅ verificado {p.last_verified} · <a href={p.source}>fuente</a></small></div>)}</div>
+<p><small>{rated.filter(p=>p.verified).length} de {rated.length} tipos/costes verificados en fuente oficial; el resto aparece como <span class="pend">pendiente de verificar</span>.</small></p>
+<h2>Compara por tipo de producto</h2>
+<div class="cards">{Object.entries(categories).map(([k,c])=> <a class="card" style="text-decoration:none;color:inherit" href={'/comparar/'+k+'/'}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div>
+<section class="news"><div><span class="eyebrow">Newsletter</span><h2>Newsletter semanal</h2></div>
+<form action="#NEWSLETTER-PLACEHOLDER" method="post" onsubmit="event.preventDefault();this.querySelector('p').textContent='Gracias. (Prototipo: el formulario aún no envía nada.)'">
+<label for="nl" class="sr">Email</label><input id="nl" type="email" required placeholder="tu@email.com" /> <button class="btn">Suscribirme</button>
+<label class="chk"><input type="checkbox" required/> Acepto la <a href="/privacidad/" style="color:#BFF2D6">política de privacidad</a> (RGPD)</label><p></p></form></section>
+<Faq faqs={faqs}/>
+</Base>
+<style>
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;padding:40px 0 20px}
+.lead{font-size:1.15rem;max-width:620px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero-panel{background:linear-gradient(150deg,#fff 0%,#E6F7EE 100%);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow)}
+.hero-panel p{display:flex;gap:12px;align-items:center;margin:14px 0;color:var(--ink)}.hero-panel small{color:var(--ink-soft)}
+.prod{display:flex;flex-direction:column;gap:6px}.prod .rate{font-family:'Space Grotesk';font-size:1.45rem;font-weight:700;color:var(--brand);margin:4px 0;letter-spacing:-.01em}
+.prod small{color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+.news{margin-top:64px;background:linear-gradient(135deg,#0F5F4A 0%,#123F33 100%);border-radius:28px;padding:44px;display:grid;grid-template-columns:1fr 1.2fr;gap:30px;align-items:center;color:#fff}
+.news h2{color:#fff;margin:.4em 0 0}.news .eyebrow{background:rgba(255,255,255,.1);color:#BFF2D6;border-color:rgba(255,255,255,.15)}
+.news form{display:flex;flex-wrap:wrap;gap:10px}.news input[type=email]{flex:1;min-width:200px}.news .btn{background:#BFF2D6;color:#0F1A16}
+.news .chk{flex-basis:100%;color:#CFE3DA;font-size:.88rem}.news form p{color:#BFF2D6;margin:0}
+@media(max-width:860px){.hero,.news{grid-template-columns:1fr}.news{padding:28px}}
+</style>

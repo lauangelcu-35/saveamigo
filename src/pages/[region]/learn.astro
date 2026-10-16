@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import { REGIONS } from '../../data/en.js';
+import { faqLd, articleLd } from '../../lib/seo.js';
+export function getStaticPaths(){ return ['us','uk','nomads'].map(region=>({params:{region}})); }
+const { region } = Astro.params; const R = REGIONS[region]; const D='2026-10-16';
+const t = {us:'Savings protection in the US explained: FDIC, SIPC, APY, T-bills',uk:'Savings protection in the UK explained: FSCS, ISAs, NS&I, AER',nomads:'Digital nomad money basics: tax residency, Spain visa, Beckham law'}[region];
+const art = {...articleLd(t,R.desc,`/${region}/learn/`,D), inLanguage:R.locale};
+---
+<Base country={region} title={t} description={R.desc} crumbs={[['Learn',`/${region}/learn/`]]} jsonld={[art, faqLd(R.learn)]}>
+<article>
+<h1>{t}</h1>
+<p class="answer">{R.answer}</p>
+<p class="meta">Updated <time datetime={D}>{D}</time> · Sources: {R.sources.map(([n,u],i)=> <Fragment>{i>0 && ', '}<a href={u} rel="noopener">{n}</a></Fragment>)}</p>
+{region==='nomads' && <div class="warn danger"><strong>Not tax or legal advice.</strong> Residency and tax rules change and depend on your full situation. Confirm with the official sources linked and a qualified adviser.</div>}
+<div class="cards">{R.learn.map(([h,b])=> <section class="card"><h2 style="font-size:1.2rem;margin-top:0">{h}</h2><p>{b}</p></section>)}</div>
+<p>Compare: {Object.entries(R.cats).map(([k,c],i)=> <Fragment>{i>0 && ' · '}<a href={`/${region}/compare/${k}/`}>{c.title}</a></Fragment>)} · <a href={`/${region}/quiz/`}>quiz</a></p>
+<Faq faqs={R.learn.slice(0,4)} title="Frequently asked questions"/>
+</article>
+</Base>

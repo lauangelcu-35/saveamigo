@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import data from '../../data/products_mx.json';
+import { categoriesMx } from '../../data/categories_mx.js';
+import { faqLd } from '../../lib/seo.js';
+const top = data.products.filter(p=>p.verified && ['cuentas','cetes'].includes(p.category));
+const v = data.products.filter(p=>p.verified).length;
+const faqs=[['¿Dónde pongo mis ahorros en México si soy principiante?','Primero un fondo de emergencia en un producto con protección (IPAB en bancos, PROSOFIPO en SOFIPOs autorizadas) o en CETES. Después, para 5+ años, fondos de inversión de bajo costo.'],['¿Qué protege el IPAB?','Los depósitos bancarios hasta 400,000 UDIs por persona y por banco.'],['¿Las SOFIPOs son seguras?','Las autorizadas por la CNBV tienen el seguro PROSOFIPO hasta 25,000 UDIs por ahorrador; por encima de esa cantidad no hay protección.'],['¿Cripto o ARQ tienen protección?','No: los activos virtuales y stablecoins no tienen IPAB ni PROSOFIPO.']];
+---
+<Base country="mx" alt="/" title="Dónde poner tu dinero en México: comparador para principiantes" description="Compara Nu, Mercado Pago, Stori, Klar, Hey Banco, CETES, GBM, Fintual y cripto en México. Protección IPAB/PROSOFIPO explicada y fuentes oficiales. No es asesoría." jsonld={[faqLd(faqs)]}>
+<section class="hero"><div><span class="eyebrow">Comparador · México</span><h1>¿Dónde pongo mi dinero en México?</h1>
+<p class="lead answer">Respuesta corta: antes de mirar el "hasta X%", revisa la protección. Bancos = IPAB hasta 400,000 UDIs; SOFIPOs autorizadas = PROSOFIPO hasta 25,000 UDIs; cripto y stablecoins = sin protección. CETES = deuda del Gobierno Federal.</p>
+<p class="actions"><a class="btn" href="/mx/quiz/">¿Ahorrar, invertir o los dos? Haz el quiz →</a> <a class="btn ghost" href="/mx/comparar/cuentas/">Ver comparativas</a></p></div>
+<div class="hero-panel"><div class="eyebrow">Protección</div><p><span class="risk bajo">IPAB</span> Bancos (CNBV)</p><p><span class="risk medio">PROSOFIPO</span> SOFIPOs autorizadas</p><p><span class="risk alto">ninguna</span> Cripto, stablecoins</p><small>{v} de {data.products.length} datos verificados en fuente oficial · <time datetime={data.updated}>{data.updated}</time></small></div></section>
+<h2>Datos verificados esta semana</h2>
+<div class="cards">{top.map(p=> <div class="card prod"><span class={'risk '+p.risk}>riesgo {p.risk}</span><h3>{p.name}</h3><p class="rate">{p.rate}</p><small>{p.guarantee}<br/>✅ verificado {p.last_verified} · <a href={p.source} rel="nofollow noopener">fuente<span class="sr"> de {p.name}</span></a></small></div>)}</div>
+<h2>Compara por tipo de producto</h2>
+<div class="cards">{Object.entries(categoriesMx).map(([k,c])=> <a class="card" style="text-decoration:none;color:inherit" href={'/mx/comparar/'+k+'/'}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div>
+<p>Antes de elegir, lee <a href="/mx/aprende/">IPAB, PROSOFIPO y CNBV explicados</a>.</p>
+<Faq faqs={faqs}/>
+</Base>
+<style>
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;padding:40px 0 20px}.lead{font-size:1.1rem;max-width:640px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero-panel{background:linear-gradient(150deg,#fff 0%,#E6F7EE 100%);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow)}.hero-panel p{display:flex;gap:12px;align-items:center;margin:14px 0;color:var(--ink)}
+.prod{display:flex;flex-direction:column;gap:6px}.prod .rate{font-family:'Space Grotesk';font-size:1.25rem;font-weight:700;color:var(--brand);margin:4px 0}.prod small{color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+</style>

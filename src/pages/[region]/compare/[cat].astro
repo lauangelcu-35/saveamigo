@@ -1,0 +1,29 @@
+---
+import Base from '../../../layouts/Base.astro';
+import TableEn from '../../../components/TableEn.astro';
+import Faq from '../../../components/Faq.astro';
+import { REGIONS } from '../../../data/en.js';
+import { faqLd, productsLd } from '../../../lib/seo.js';
+import us from '../../../data/products_us.json'; import uk from '../../../data/products_uk.json'; import nomads from '../../../data/products_nomads.json';
+export function getStaticPaths(){ return ['us','uk','nomads'].flatMap(region=>Object.keys(REGIONS[region].cats).map(cat=>({params:{region,cat}}))); }
+const { region, cat } = Astro.params; const R = REGIONS[region]; const c = R.cats[cat]; const data = {us,uk,nomads}[region];
+const items = data.products.filter(p=>p.category===cat);
+const url = `/${region}/compare/${cat}/`;
+const v = items.filter(p=>p.verified).length;
+const where = region==='nomads' ? 'for digital nomads' : 'in the '+(region==='us'?'US':'UK');
+---
+<Base title={`${c.title} ${where}: comparison ${data.updated.slice(0,7)}`} description={`${c.title} ${where} compared: ${c.answer.slice(0,110)}…`} country={region} crumbs={[['Compare',`/${region}/compare/${Object.keys(R.cats)[0]}/`],[c.title,url]]} jsonld={[faqLd(c.faqs), productsLd(items.map(p=>({...p,rate:p.rate.replace('pending verification','pendiente'),cost:p.cost.replace('pending verification','pendiente')})),url)]}>
+<nav class="tabs" aria-label="Categories">{Object.entries(R.cats).map(([k,x])=> <a class={k===cat?"on":""} href={`/${region}/compare/${k}/`} aria-current={k===cat?'page':undefined}>{x.title}</a>)}</nav>
+<article>
+<h1>{c.title} {where}</h1>
+<p class="answer">{c.answer}</p>
+<p class="meta">Updated <time datetime={data.updated}>{data.updated}</time> · {v} of {items.length} verified on official sources</p>
+{cat==='crypto' && <div class="warn danger"><strong>⚠️ High risk.</strong> No deposit or investor protection; prices can fall more than 80%. Registration with a regulator ≠ the investment is safe.</div>}
+<h2 style="margin-top:28px">Comparison</h2>
+<TableEn items={items}/>
+<p><small>Order: as collected, not a sponsored ranking. "Pending verification" values could not be confirmed on the official website and must not be used to decide. Sources: "official source" link in each row · <a href={`/${region}/learn/`}>how we read protection</a>.</small></p>
+<p>Not sure whether to save or invest? Take the <a href={`/${region}/quiz/`}>Save, invest or both? quiz</a> or read <a href={`/${region}/learn/`}>the basics</a>.</p>
+<Faq faqs={c.faqs} title="Frequently asked questions"/>
+</article>
+</Base>
+<style>.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.tabs a{background:#fff;border:1px solid var(--line);padding:8px 16px;border-radius:100px;text-decoration:none;color:var(--ink);font-size:.88rem;font-weight:500}.tabs a.on{background:var(--ink);color:#fff}</style>

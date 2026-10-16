@@ -1,0 +1,204 @@
+{
+  "_doc": "Enlaces de referido por id de producto. Deja url vacía (\"\") para no mostrar enlace. Se muestran con la etiqueta 'enlace de referido' y rel='sponsored nofollow'. El propietario debe rellenar estos valores.",
+  "revolut": {
+    "url": "https://revolut.com/referral/?referral-code=lauangelcu!OCT1-26-AR-CH1H2-H1&geo-redirect",
+    "label": "Revolut"
+  },
+  "cripto-revolut": {
+    "url": "https://revolut.com/referral/?referral-code=lauangelcu!OCT1-26-AR-CH1H2-H1&geo-redirect",
+    "label": "Revolut (cripto)"
+  },
+  "arq": {
+    "url": "",
+    "label": "ARQ (antes DolarApp)"
+  },
+  "cripto-bitpanda": {
+    "url": "",
+    "label": "Bitpanda"
+  },
+  "cripto-bit2me": {
+    "url": "",
+    "label": "Bit2Me"
+  },
+  "cripto-kraken": {
+    "url": "https://invite.kraken.com/JDNW/guntkgax",
+    "label": "Kraken"
+  },
+  "cripto-coinbase": {
+    "url": "",
+    "label": "Coinbase"
+  },
+  "cripto-bitstamp": {
+    "url": "",
+    "label": "Bitstamp"
+  },
+  "mx-bitso": {
+    "url": "",
+    "label": "Bitso"
+  },
+  "mx-binance": {
+    "url": "https://www.binance.com/referral/earn-together/refer2earn-usdc/claim?hl=en&ref=GRO_28502_9Y2PJ&utm_source=referral_entrance",
+    "label": "Binance México"
+  },
+  "mx-kraken": {
+    "url": "https://invite.kraken.com/JDNW/guntkgax",
+    "label": "Kraken (México)"
+  },
+  "us-marcus": {
+    "url": "",
+    "label": "Marcus by Goldman Sachs – Online Savings"
+  },
+  "us-ally": {
+    "url": "",
+    "label": "Ally Bank – Savings Account"
+  },
+  "us-wealthfront": {
+    "url": "",
+    "label": "Wealthfront – Cash Account"
+  },
+  "us-betterment": {
+    "url": "",
+    "label": "Betterment – Cash Reserve"
+  },
+  "us-marcus-cd": {
+    "url": "",
+    "label": "Marcus by Goldman Sachs – 12-month CD"
+  },
+  "us-ally-cd": {
+    "url": "",
+    "label": "Ally Bank – High Yield CD"
+  },
+  "us-tbill-4": {
+    "url": "",
+    "label": "US Treasury bill – 4-week"
+  },
+  "us-tbill-8": {
+    "url": "",
+    "label": "US Treasury bill – 8-week"
+  },
+  "us-tbill-13": {
+    "url": "",
+    "label": "US Treasury bill – 13-week"
+  },
+  "us-tbill-17": {
+    "url": "",
+    "label": "US Treasury bill – 17-week"
+  },
+  "us-tbill-26": {
+    "url": "",
+    "label": "US Treasury bill – 26-week"
+  },
+  "us-tbill-52": {
+    "url": "",
+    "label": "US Treasury bill – 52-week"
+  },
+  "us-fidelity": {
+    "url": "",
+    "label": "Fidelity – index funds & brokerage"
+  },
+  "us-vanguard": {
+    "url": "",
+    "label": "Vanguard – index funds & brokerage"
+  },
+  "us-wealthfront-inv": {
+    "url": "",
+    "label": "Wealthfront – automated investing"
+  },
+  "us-betterment-inv": {
+    "url": "",
+    "label": "Betterment – automated investing"
+  },
+  "us-coinbase": {
+    "url": "",
+    "label": "Coinbase"
+  },
+  "us-kraken": {
+    "url": "https://invite.kraken.com/JDNW/guntkgax",
+    "label": "Kraken"
+  },
+  "uk-marcus": {
+    "url": "",
+    "label": "Marcus (UK) – Online Savings Account"
+  },
+  "uk-nsi-direct": {
+    "url": "",
+    "label": "NS&I – Direct Saver"
+  },
+  "uk-nsi-isa": {
+    "url": "",
+    "label": "NS&I – Direct ISA (Cash ISA)"
+  },
+  "uk-chase": {
+    "url": "",
+    "label": "Chase UK – Saver"
+  },
+  "uk-revolut": {
+    "url": "https://revolut.com/referral/?referral-code=lauangelcu!OCT1-26-AR-CH1H2-H1&geo-redirect",
+    "label": "Revolut"
+  },
+  "uk-t212-cash": {
+    "url": "",
+    "label": "Trading 212 – Interest on cash"
+  },
+  "uk-nsi-bsb": {
+    "url": "",
+    "label": "NS&I – British Savings Bonds (fixed)"
+  },
+  "uk-marcus-fixed": {
+    "url": "",
+    "label": "Marcus (UK) – Fixed Rate Savings"
+  },
+  "uk-premium": {
+    "url": "",
+    "label": "NS&I – Premium Bonds"
+  },
+  "uk-vanguard": {
+    "url": "",
+    "label": "Vanguard UK – ISA / Managed ISA"
+  },
+  "uk-freetrade": {
+    "url": "",
+    "label": "Freetrade – Stocks & Shares ISA"
+  },
+  "uk-nutmeg": {
+    "url": "",
+    "label": "Nutmeg – robo-advisor ISA"
+  },
+  "uk-t212": {
+    "url": "",
+    "label": "Trading 212 – Invest / ISA"
+  },
+  "uk-kraken": {
+    "url": "https://invite.kraken.com/JDNW/guntkgax",
+    "label": "Kraken"
+  },
+  "uk-coinbase": {
+    "url": "",
+    "label": "Coinbase (UK)"
+  },
+  "uk-revolut-crypto": {
+    "url": "https://revolut.com/referral/?referral-code=lauangelcu!OCT1-26-AR-CH1H2-H1&geo-redirect",
+    "label": "Revolut (crypto)"
+  },
+  "nm-wise": {
+    "url": "",
+    "label": "Wise – multi-currency account + Interest"
+  },
+  "nm-revolut": {
+    "url": "https://revolut.com/referral/?referral-code=lauangelcu!OCT1-26-AR-CH1H2-H1&geo-redirect",
+    "label": "Revolut"
+  },
+  "nm-arq": {
+    "url": "",
+    "label": "ARQ (formerly DolarApp) – digital dollars"
+  },
+  "nm-ibkr": {
+    "url": "",
+    "label": "Interactive Brokers – global broker"
+  },
+  "nm-kraken": {
+    "url": "https://invite.kraken.com/JDNW/guntkgax",
+    "label": "Kraken"
+  },
+  "_doc_en": "English sections (us-/uk-/nm-). Revolut referral omitted for US: the Spanish-issued code is not confirmed to work with Revolut US. Empty url = no link."
+}
