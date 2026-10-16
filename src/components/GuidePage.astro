@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from './Faq.astro';
+import Newsletter from './Newsletter.astro';
+import { faqLd } from '../lib/seo.js';
+import { SITE_URL } from '../data/site.js';
+import { GUIDES, GUIDE_DATE, gPath } from '../data/guides.js';
+const { g } = Astro.props;
+const en = g.lang==='en';
+const url = gPath(g);
+const idx = en?'/guides/':'/guias/';
+const quiz = {es:'/quiz/',mx:'/mx/quiz/',us:'/us/quiz/',uk:'/uk/quiz/',nomads:'/nomads/quiz/'}[g.country];
+const inLang = {es:'es-ES',mx:'es-MX',us:'en-US',uk:'en-GB',nomads:'en'}[g.country];
+const art = {'@context':'https://schema.org','@type':'Article',headline:g.title,description:g.desc,url:SITE_URL+url,mainEntityOfPage:SITE_URL+url,datePublished:GUIDE_DATE,dateModified:GUIDE_DATE,inLanguage:inLang,image:SITE_URL+'/og/'+({es:'default'}[g.country]||g.country)+'.png',author:{'@id':SITE_URL+'/#org'},publisher:{'@id':SITE_URL+'/#org'}};
+const others = GUIDES.filter(x=>x.lang===g.lang && x.slug!==g.slug);
+---
+<Base country={g.country} title={g.title} description={g.desc} ogType="article" crumbs={[[en?'Guides':'Guías',idx],[g.title,url]]} jsonld={[art, faqLd(g.faqs)]}>
+<article>
+<p class="meta">{en?'Beginner guide':'Guía para principiantes'} · <time datetime={GUIDE_DATE}>{GUIDE_DATE}</time></p>
+<h1>{g.title}</h1>
+<p class="answer">{g.answer}</p>
+{g.sections.map(([h,html])=> <section><h2>{h}</h2><Fragment set:html={html}/></section>)}
+<section class="card gcta"><span class="eyebrow">Quiz</span><h2 style="margin-top:10px">{en?'Not sure where to start? Take the 2-minute quiz':'¿No sabes por dónde empezar? Haz el quiz de 2 minutos'}</h2><p>{en?'Seven questions about your emergency fund, timeline and risk. You get a general, non-personalised orientation.':'Siete preguntas sobre tu colchón, tu plazo y tu tolerancia al riesgo. Recibes una orientación general, no personalizada.'}</p><p><a class="btn" href={quiz}>{en?'Take the quiz →':'Hacer el quiz →'}</a></p></section>
+<Faq faqs={g.faqs} title={en?'Frequently asked questions':'Preguntas frecuentes'}/>
+<h2>{en?'Compare next':'Compara ahora'}</h2><ul>{g.related.map(([t,u])=> <li><a href={u}>{t}</a></li>)}</ul>
+<p><small>{en?'Official sources are linked in the text. Rates change: see the comparison tables for current, verified figures; unconfirmed data shows "pending verification". General information, not financial advice.':'Las fuentes oficiales están enlazadas en el texto. Los tipos cambian: consulta las tablas para datos actuales verificados; lo no confirmado aparece como "pendiente de verificar". Información general, no asesoramiento.'}</small></p>
+</article>
+<Newsletter country={g.country} source={g.slug}/>
+<h2>{en?'More guides':'Más guías'}</h2><div class="cards">{others.map(x=> <a class="card" style="text-decoration:none;color:inherit" href={gPath(x)}><h3>{x.title}</h3><p>{x.desc}</p></a>)}</div>
+</Base>
+<style>.gcta{margin:36px 0;border-left:4px solid var(--mint-deep)}article section{max-width:820px}</style>

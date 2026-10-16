@@ -1,10 +1,10 @@
 // English sections (US, UK, digital nomads). Generic text only: every number shown comes from products_*.json with its source.
 export const NAV = {
-  es: { home:'/', homeName:'Inicio', sym:'€', flag:'🇪🇸 ES', links:[['Comparar','/comparar/cuentas/'],['Aprende','/aprende/'],['Metodología','/metodologia/'],['Nómadas','/nomadas/']], cta:['¿Ahorrar o invertir?','/quiz/'] },
-  mx: { home:'/mx/', homeName:'Inicio México', sym:'$', flag:'🇲🇽 MX', links:[['Comparar','/mx/comparar/cuentas/'],['Aprende','/mx/aprende/'],['Quiz','/mx/quiz/'],['Nómadas','/nomadas/']], cta:['¿Ahorrar o invertir?','/mx/quiz/'] },
-  us: { home:'/us/', homeName:'US home', sym:'$', flag:'🇺🇸 US', links:[['Compare','/us/compare/savings/'],['Learn','/us/learn/'],['Quiz','/us/quiz/']], cta:['Save or invest?','/us/quiz/'] },
-  uk: { home:'/uk/', homeName:'UK home', sym:'£', flag:'🇬🇧 UK', links:[['Compare','/uk/compare/savings/'],['Learn','/uk/learn/'],['Quiz','/uk/quiz/']], cta:['Save or invest?','/uk/quiz/'] },
-  nomads: { home:'/nomads/', homeName:'Nomads home', sym:'🌍', flag:'🌍 Nomads', links:[['Compare','/nomads/compare/accounts/'],['Learn','/nomads/learn/'],['Quiz','/nomads/quiz/'],['Resumen ES','/nomadas/']], cta:['Save or invest?','/nomads/quiz/'] },
+  es: { home:'/', homeName:'Inicio', sym:'€', flag:'🇪🇸 ES', links:[['Comparar','/comparar/cuentas/'],['Aprende','/aprende/'],['Guías','/guias/'],['Metodología','/metodologia/'],['Nómadas','/nomadas/']], cta:['¿Ahorrar o invertir?','/quiz/'] },
+  mx: { home:'/mx/', homeName:'Inicio México', sym:'$', flag:'🇲🇽 MX', links:[['Comparar','/mx/comparar/cuentas/'],['Aprende','/mx/aprende/'],['Guías','/guias/'],['Nómadas','/nomadas/']], cta:['¿Ahorrar o invertir?','/mx/quiz/'] },
+  us: { home:'/us/', homeName:'US home', sym:'$', flag:'🇺🇸 US', links:[['Compare','/us/compare/savings/'],['Learn','/us/learn/'],['Guides','/guides/'],['Quiz','/us/quiz/']], cta:['Save or invest?','/us/quiz/'] },
+  uk: { home:'/uk/', homeName:'UK home', sym:'£', flag:'🇬🇧 UK', links:[['Compare','/uk/compare/savings/'],['Learn','/uk/learn/'],['Guides','/guides/'],['Quiz','/uk/quiz/']], cta:['Save or invest?','/uk/quiz/'] },
+  nomads: { home:'/nomads/', homeName:'Nomads home', sym:'🌍', flag:'🌍 Nomads', links:[['Compare','/nomads/compare/accounts/'],['Learn','/nomads/learn/'],['Guides','/guides/'],['Quiz','/nomads/quiz/'],['Resumen ES','/nomadas/']], cta:['Save or invest?','/nomads/quiz/'] },
 };
 export const CLUSTERS = [
   { 'es-ES':'/', 'es-MX':'/mx/', 'en-US':'/us/', 'en-GB':'/uk/' },
@@ -12,6 +12,7 @@ export const CLUSTERS = [
   { 'es-ES':'/aprende/', 'es-MX':'/mx/aprende/', 'en-US':'/us/learn/', 'en-GB':'/uk/learn/' },
   { 'es-ES':'/privacidad/', 'es-MX':'/mx/privacidad/', 'en':'/en/privacy/' },
   { 'en':'/nomads/', 'es':'/nomadas/' },
+  { 'es':'/guias/', 'en':'/guides/' },
 ];
 export const REGIONS = {
   us: {

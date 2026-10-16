@@ -1,3 +1,4 @@
+import { GUIDES, gPath } from '../data/guides.js';
 import { REGIONS } from '../data/en.js';
 import us from '../data/products_us.json';
 import uk from '../data/products_uk.json';
@@ -27,6 +28,11 @@ ${Object.entries(categoriesMx).map(([k,c])=>`- [${c.title}](${S}/mx/comparar/${k
 
 ${['us','uk','nomads'].map(r=>{const R=REGIONS[r];return `## ${R.name} (English)\n- [${R.name} home](${S}/${r}/): ${R.answer}\n- [Quiz: save, invest or both? (${R.short})](${S}/${r}/quiz/)\n${Object.entries(R.cats).map(([k,c])=>`- [${c.title}](${S}/${r}/compare/${k}/): ${c.intro}`).join('\n')}\n- [Learn (${R.short})](${S}/${r}/learn/)\n`}).join('\n')}
 - [Resumen nómadas en español](${S}/nomadas/)
+
+## Guías / Guides
+- [Guías en español](${S}/guias/)
+- [Guides in English](${S}/guides/)
+${GUIDES.map(g=>`- [${g.title}](${S}${gPath(g)}): ${g.answer}`).join('\n')}
 
 ## Datos verificados
 ${[...data.products,...mx.products,...us.products,...uk.products,...nm.products].filter(p=>p.verified).map(p=>`- ${p.name}: ${p.rate} (verificado ${p.last_verified}; fuente ${p.source})`).join('\n')}

@@ -1,0 +1,15 @@
+---
+import { NEWSLETTER_ENDPOINT, FIELD_MAP } from '../data/site.js';
+const { country='es', source='guide' } = Astro.props;
+const en = ['us','uk','nomads'].includes(country);
+const priv = en ? '/en/privacy/' : country==='mx' ? '/mx/privacidad/' : '/privacidad/';
+const T = en ? {h:'Weekly newsletter',p:'Verified rates and one beginner explainer a week. No spam.',b:'Subscribe',c:'I agree to receive the newsletter by email under the',pl:'privacy policy',ok:'Thanks! Check your inbox to confirm.'} : {h:'Newsletter semanal',p:'Tipos verificados y una explicación para principiantes cada semana. Sin spam.',b:'Suscribirme',c:'Acepto recibir la newsletter por email según la',pl:'política de privacidad',ok:'¡Gracias! Revisa tu correo para confirmar.'};
+---
+<section class="gnews"><div><span class="eyebrow">Newsletter</span><h2>{T.h}</h2><p>{T.p}</p></div>
+<form class="gnl" method="post" action={NEWSLETTER_ENDPOINT} data-ok={T.ok}>
+<label class="sr" for={'nl-'+source}>Email</label><input id={'nl-'+source} type="email" name={FIELD_MAP.email} required placeholder={en?'you@email.com':'tu@email.com'} autocomplete="email"/>
+<input type="hidden" name={FIELD_MAP.country} value={country}/><input type="hidden" name={FIELD_MAP.tags} value={'guide,'+source}/>
+<button class="btn">{T.b}</button>
+<label class="chk"><input type="checkbox" name={FIELD_MAP.consent} value="yes" required/> <span>{T.c} <a href={priv}>{T.pl}</a>.</span></label><p class="gmsg" aria-live="polite"></p></form></section>
+<script>document.querySelectorAll('form.gnl').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();if(!f.checkValidity()){f.reportValidity();return;}fetch(f.action,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))}).finally(()=>{f.querySelector('.gmsg').textContent=f.dataset.ok;f.reset();});}));</script>
+<style>.gnews{margin-top:48px;background:linear-gradient(135deg,#0F5F4A 0%,#123F33 100%);border-radius:28px;padding:36px;display:grid;grid-template-columns:1fr 1.2fr;gap:24px;align-items:center;color:#fff}.gnews h2{color:#fff;margin:.4em 0 .2em}.gnews p{color:#CFE3DA}.gnews .eyebrow{background:rgba(255,255,255,.1);color:#BFF2D6}.gnl{display:flex;flex-wrap:wrap;gap:10px}.gnl input[type=email]{flex:1;min-width:200px}.gnl .btn{background:#BFF2D6;color:#0F1A16}.gnl .chk{flex-basis:100%;color:#CFE3DA;font-size:.85rem;display:flex;gap:8px}.gnl .chk a{color:#BFF2D6}.gmsg{color:#BFF2D6!important;margin:0}@media(max-width:860px){.gnews{grid-template-columns:1fr;padding:26px}}</style>

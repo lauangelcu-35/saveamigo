@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { GUIDES, gPath } from '../../data/guides.js';
+import { SITE_URL } from '../../data/site.js';
+const gs = GUIDES.filter(g=>g.lang==='en');
+const flag = {us:'🇺🇸 US',uk:'🇬🇧 UK',nomads:'🌍 Nomads'};
+const ld = {'@context':'https://schema.org','@type':'CollectionPage',name:'Beginner savings and investing guides',url:SITE_URL+'/guides/',inLanguage:'en',hasPart:gs.map(g=>({'@type':'Article',headline:g.title,url:SITE_URL+gPath(g)}))};
+---
+<Base country="nomads" title="Beginner savings & investing guides (US, UK, digital nomads)" description="Plain-English guides to the most-searched beginner questions: save or invest first, high-yield savings vs CDs vs index funds, Stocks & Shares ISAs and banking as a digital nomad." crumbs={[['Guides','/guides/']]} jsonld={[ld]}>
+<h1>Beginner guides</h1>
+<p class="answer">Clear answers to the questions beginners search most, with links to official sources (FDIC, SIPC, Investor.gov, FCA, FSCS, GOV.UK, ESMA) and to our comparison tables.</p>
+<div class="cards">{gs.map(g=> <a class="card" style="text-decoration:none;color:inherit" href={gPath(g)}><span class="meta">{flag[g.country]}</span><h2 style="font-size:1.2rem">{g.title}</h2><p>{g.desc}</p></a>)}</div>
+<p>Quizzes: <a href="/us/quiz/">US</a> · <a href="/uk/quiz/">UK</a> · <a href="/nomads/quiz/">Nomads</a> · <a href="/guias/" lang="es">Guías en español</a></p>
+<Newsletter country="nomads" source="guides-index"/>
+</Base>
